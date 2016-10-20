@@ -20,3 +20,8 @@ while True:
 
 client_socket.close()
 server_socket.close()
+
+
+
+# MAKING SURE WE KNOW HOW TO USE GITHUB
+# CSC 376.5 GITHUB & YOU
