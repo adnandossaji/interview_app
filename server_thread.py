@@ -1,6 +1,7 @@
 #! python3
 
-import threading, server_globals, sqlite3
+import threading, server_globals
+from user import User
 
 class ServerThread( threading.Thread ):
   def __init__(self, connection):
@@ -12,21 +13,15 @@ class ServerThread( threading.Thread ):
     tack = argv[1]
 
     if tack == "--signup":
-      conn= sqlite3.connect( 'interview_app.db' )
-      conn.row_factory= sqlite3.Row
-
-      username = str(argv[3])
-      password = str(argv[5])
-
-      cur = conn.cursor()
-
-      cur.execute("SELECT * FROM User ORDER BY ID DESC LIMIT 1;")
 
       try:
-        conn.execute("INSERT into User (id,username,password) VALUES (?,?,?);", (cur.fetchone()["id"] + 1, username, password))
 
-        conn.commit()
-        conn.close()
+        username = str(argv[3])
+        password = str(argv[5])
+
+        user = User(username, password)
+
+        user.signup()
 
         print( 'relaying message...' )
         for current_connection in server_globals.connections:
@@ -36,7 +31,8 @@ class ServerThread( threading.Thread ):
       except:
         for current_connection in server_globals.connections:
             # if current_connection is not self.connection:
-            current_connection.send("Username already exists!\n".encode())
+          current_connection.send("Username already exists!\n".encode())
+        raise
 
   def chat(self, argv):
     script_name = argv[0]
