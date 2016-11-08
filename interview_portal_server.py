@@ -3,7 +3,7 @@ if __name__ == "__main__":
     import socket
     import time
     from argparse import ArgumentParser
-    from interview_serverthread import ServerThread
+    from interview_portal_serverthread import ServerThread
     import sqlite3
 
     parser = ArgumentParser(description = 'CSC 376 Final Project : Interview Portal')
