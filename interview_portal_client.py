@@ -16,6 +16,15 @@ def credentials():
         out_data = sys.stdin.readline()
         client_socket.send(out_data.encode())
         time.sleep(0.01)
+#string printing loop that prints question from server and returns string answer
+def startinterview():
+    interview_string=client_socket.recv(1024)
+    while (interview_string!="endinterview"):#keyword could be swapped out for anything
+        print(interview_string.decode())
+        answer_string=str(input("Answer: "))
+        client_socket.send(answer_string.encode())
+        interview_string=client_socket.recv(1024)
+    return
 
 if __name__ == "__main__":
     import sys
