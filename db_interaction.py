@@ -15,24 +15,30 @@ class db_int():
 		self.conn.close()
 	
 	def getUser(self,username,password):
-		self.conn.execute("select USERID, USER, PERMISSIONS, INTID from ACCOUNTS where USER = ? and PASSWORD = ?",(username,password))
+		select = "SELECT UserID, UserName, UserRoleID, InterviewID "
+		table = "FROM UserInformation "
+		self.conn.execute(select + table + "WHERE UserName = ? AND Password = ?",(username,password))
 		row = self.conn.fetchone()
-		res = user.User(row['USERID'],row['USER'],row['PERMISSIONS'],row['INTID'])
+		res = user.User(row['UserID'],row['UserName'],row['UserRoleID'],row['InterviewID'])
 		return res
 	
 	
-	def getInterview(self,IntID):
-		self.conn.execute("select ID, NAME, LENGTH from INTERVIEWS where ID = ?",(IntID,))
-		row = self.conn.fetchone()
-		res = interview.Interview(row['ID'],row['NAME'],row['LENGTH'])
-		return res
+	def getInterview(self,InterviewID):
+		SELECT = "SELECT ii.InterviewName, ir.QuestionID, qi.QuestionText, qr.AnswerID, a.AnswerText "
+		FROM = "FROM InterviewInfo ii "
+		JOINS = "INNER JOIN InterviewRelation ir ON ii.InterviewID = ir.InterviewID INNER JOIN QuestionInfo qi ON ir.QuestionID = qi.QuestionID INNER JOIN QuestionRelation qr ON qi.QuestionID = qr.QuestionID INNER JOIN Answers a on qr.AnswerID = a.AnswerID "
+		rows = self.conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
+		InterviewName = rows[0]['InterviewName']
+		Questions = {}
 		
-	def getQuestions(self,IntID):
-		self.conn.execute("select QUESTIONID, INTERVIEWID, QUESTION, QNUMBER from QUESTIONS where INTERVIEWID = ?",(IntID,))
-		rows = self.conn.fetchall()
-		res = {}
-		for D in rows:
-			res[rows['QNUMBER']] = question.Question(rows['QUESTIONID'],rows['INTERVIEWID'],rows['QUESTION'],rows['QNUMBER'])
+		for row in rows:
+			if row['QuestionID'] in Questions:
+				Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
+			else 
+				Questions[row['QuestionID']] = question.Question(row['QuestionID'],row['QuestionText'])
+				Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
+		
+		res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
 		return res
 	
 	# accept's a list of the Answer objects and inserts each into the database 

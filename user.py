@@ -1,9 +1,9 @@
 class User():
-	def __init__(self,UID,User,Permissions,IntID):
-		self.uid = UID
-		self.user = User
-		self.permissions = Permissions
-		self.intid = IntID
+	def __init__(self,UserID,UserName,UserRoleID,InterviewID):
+		self.uid = UserID
+		self.user = UserName
+		self.permissions = UserRoleID
+		self.intid = InterviewID
 		
 	def __str__(self):
 		return 'User: ' + str(self.uid) + ' Name: ' + str(self.user) + ' Permissions: ' + str(self.permissions)

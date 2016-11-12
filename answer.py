@@ -1,19 +1,15 @@
 class Answer():
-	def __init__(self,UID,Answer,QID):
+	def __init__(self,AID,Answer):
 		self.answer = Answer
-		self.qid = QID
-		self.uid = UID
+		self.aid = AID
 		
 	def __str__(self):
 		return 'Answer: ' + str(self.aid) + ' ' + str(self.answer) + ' ' + str(self.qid)
 		
-	def getAnswer(self):
+	def getAnswerText(self):
 		return self.answer
 		
-	def getQID(self):
-		return self.qid
-		
-	def getUID(self):
-		return self.uid
+	def getAnswerID(self):
+		return self.aid
 		
 		
