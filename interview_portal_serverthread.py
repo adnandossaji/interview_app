@@ -2,7 +2,7 @@ import sys
 import threading
 import time
 import sqlite3
-from db_interaction import db_int
+import db_interaction
 
 # Create a threading.Thread class
 class ServerThread(threading.Thread):
