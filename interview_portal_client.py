@@ -9,13 +9,12 @@ def terminate_session():
     return
 
 def credentials():
-    for i in range(0,2):
-        in_data = client_socket.recv(1024)
-        print(in_data.decode(), end = '')
-        sys.stdout.flush()
-        out_data = sys.stdin.readline()
-        client_socket.send(out_data.encode())
-        time.sleep(0.01)
+    prompt=client_socket.recv(1024)
+    answer_string=str(input(prompt.decode()))
+    client_socket.send(answer_string.encode())
+    prompt=client_socket.recv(1024)
+    answer_string=str(input(prompt.decode()))
+    client_socket.send(answer_string.encode())
 #string printing loop that prints question from server and returns string answer
 def startinterview():
     interview_string=client_socket.recv(1024)
@@ -45,5 +44,6 @@ if __name__ == "__main__":
     client_socket.connect((_HOST, _PORT))
     in_data = client_socket.recv(1024)
     print(in_data.decode())
+
 
     credentials()

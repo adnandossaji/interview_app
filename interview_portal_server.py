@@ -5,6 +5,7 @@ if __name__ == "__main__":
     from argparse import ArgumentParser
     from interview_portal_serverthread import ServerThread
     import sqlite3
+    import db_interaction
 
     parser = ArgumentParser(description = 'CSC 376 Final Project : Interview Portal')
     #parser.add_argument('host', type = str, help = 'Host Address of the Server')
