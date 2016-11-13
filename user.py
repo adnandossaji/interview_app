@@ -6,7 +6,7 @@ class User():
 		self.intid = InterviewID
 		
 	def __str__(self):
-		return 'User: ' + str(self.uid) + ' Name: ' + str(self.user) + ' Permissions: ' + str(self.permissions)
+		return 'User: ' + str(self.uid) + ' Name: ' + str(self.user) + ' Permissions: ' + str(self.permissions) + str(self.intid)
 		
 	def getID(self):
 		return self.uid
