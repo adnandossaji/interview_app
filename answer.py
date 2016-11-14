@@ -4,7 +4,7 @@ class Answer():
 		self.aid = AID
 		
 	def __str__(self):
-		return 'Answer: ' + str(self.aid) + ' ' + str(self.answer) + ' ' + str(self.qid)
+		return '[ AnswerID: ' + str(self.aid) + ' AnswerText: ' + str(self.answer) + ']\n'
 		
 	def getAnswerText(self):
 		return self.answer

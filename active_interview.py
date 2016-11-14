@@ -32,4 +32,10 @@ class ActiveInterview():
 		self.iter = self.iter + 1
 		return res
 		
+	def __str__(self):
+		ret = '\n'
+		for question in self.questions:
+			ret = ret + '\t' + str(question) + '\n'
+		return '{ InterviewID: ' + self.interviewID + ' InterviewName: ' + self.interviewName + ret + '}'
+		
 	
