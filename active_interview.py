@@ -13,6 +13,7 @@ class ActiveInterview():
 		self.interviewName = InterviewName
 		self.questions = [] if Questions is None else Questions
 		self.iter = 0
+		self.InterviewLength =len(self.questions)
 		
 	def putQuestion(self, question):
 		self.questions[question.getNumQ] = question
@@ -25,15 +26,15 @@ class ActiveInterview():
 		
 	def getQuestions(self):
 		return self.questions
-		
-	def answerQuestion(self, AnswerID):
-		
 	
 	# returns the current question and increments the curQ
 	def getNextQuestion(self):
 		res = self.questions[self.iter]
-		self.iter = self.iter + 1
-		return res
+		if self.iter => self.InterviewLength:
+			return 'End of Interview'
+		else:
+			self.iter = self.iter + 1
+			return res
 		
 	def __str__(self):
 		ret = '\n'
