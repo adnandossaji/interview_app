@@ -25,6 +25,9 @@ class ActiveInterview():
 		
 	def getQuestions(self):
 		return self.questions
+		
+	def answerQuestion(self, AnswerID):
+		
 	
 	# returns the current question and increments the curQ
 	def getNextQuestion(self):

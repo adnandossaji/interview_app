@@ -41,10 +41,10 @@ def getInterview(InterviewID):
         return res
 	
 	# accept's a list of the Answer objects and inserts each into the database 
-def submitAnswers(Answers):
+def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
-        for Answer in Answers:
+        for Question in ActiveInterview.getQuestions:
         	conn.excute("insert into ANSWERS(USERID, ANSWER, QUESTIONID) values (?,?,?)",(Answer.getUID(), Answer.getAnswer(), Answer.getQID()))
         conn.commit()
         conn.close()
