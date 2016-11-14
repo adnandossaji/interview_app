@@ -15,12 +15,39 @@ class ServerThread(threading.Thread):
         self._USER_NAME = ''
         self._USER_PW = ''
         self.currentuser=None
+    def sendQuestion(self,messagestring,sendAnswers):
+        correct=False
+        while correct==False:
+            self.client_socket.send(messagestring.encode())
+            response=self.client_socket.recv(1024).decode()
+            print(response)
+            for tup in sendAnswers:
+                print(tup[2],"is", response)
+                if response == tup[2]:
+                    correct = True
+                    return response
+
+        return response
     def giveInterview(self):
         answerlist=[]
         i=1
         currentinterview=db_interaction.getInterview(self.currentuser.getIntID())
         greetingString="Welcome to your interview!\n"+currentinterview.getInterviewName()+"\n"
         self.client_socket.send(greetingString.encode())
+        currentQuestion=currentinterview.getNextQuestion()
+        while currentQuestion != "End of Interview":
+            answers=currentQuestion.getAnswers()
+            sendAnswers=[]
+            firstletter='A'
+            for a in answers:
+                sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
+                firstletter=chr(ord(firstletter)+1)
+            messagestring=currentQuestion.getQuestionText()+"\n"
+            for tup in sendAnswers:
+                messagestring=messagestring+str(tup[2])+": "+str(tup[0])+"\n"
+            response=self.sendQuestion(messagestring,sendAnswers)
+            print("We made it!")
+            currentQuestion=currentinterview.getNextQuestion()
         return
 
     def validate(self):
