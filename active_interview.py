@@ -26,6 +26,12 @@ class ActiveInterview():
 		
 	def getQuestions(self):
 		return self.questions
+		
+	def getQuestion(self):
+		return self.questions[self.iter]
+	
+	def answerQuestion(self, AnswerID):
+		self.questions[self.iter].answerQuestion(AnswerID)
 	
 	# returns the current question and increments the curQ
 	def getNextQuestion(self):
@@ -34,7 +40,7 @@ class ActiveInterview():
 			return 'End of Interview'
 		else:
 			self.iter = self.iter + 1
-			return res
+			return self.questions[self.iter]
 		
 	def __str__(self):
 		ret = '\n'

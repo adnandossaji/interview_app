@@ -13,7 +13,7 @@ def getUser( username, password):
         table = "FROM UserInformation "
         row = conn.execute(select + table + "WHERE UserName = ? AND Password = ?",(username,password)).fetchone()
         res = user.User(row['UserID'],row['UserName'],row['UserRoleID'],row['InterviewID'])
-        print(res)
+        #print(res)
         conn.close()
         return res
 	
@@ -37,15 +37,15 @@ def getInterview(InterviewID):
 	
         res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
         conn.close()
-        print(res)
+        #print(res)
         return res
 	
 	# accept's a list of the Answer objects and inserts each into the database 
 def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
-        for Question in ActiveInterview.getQuestions:
-        	conn.excute("insert into ANSWERS(USERID, ANSWER, QUESTIONID) values (?,?,?)",(Answer.getUID(), Answer.getAnswer(), Answer.getQID()))
+        for Question in ActiveInterview.getQuestions():
+        	conn.excute("INSERT INTO InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)",(ActiveInterview.getInterviewID(), Question.getQuestionID(), Question.getUserAnswer()))
         conn.commit()
         conn.close()
 		
@@ -65,8 +65,8 @@ def makeNewInterview(activeInterview):
 	
 		
 
-getUser('ccastino','pw123')
-getInterview('1')
+#getUser('ccastino','pw123')
+#getInterview('1')
 
 
 
