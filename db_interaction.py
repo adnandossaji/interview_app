@@ -16,8 +16,8 @@ def getUser( username, password):
         #print(res)
         conn.close()
         return res
-
-
+	
+	
 def getInterview(InterviewID):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
@@ -27,20 +27,20 @@ def getInterview(InterviewID):
         rows = conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
         InterviewName = rows[0]['InterviewName']
         Questions = {}
-
+        
         for row in rows:
         	if row['QuestionID'] in Questions:
         		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
         	else :
         		Questions[row['QuestionID']] = question.Question(row['QuestionID'],row['QuestionText'])
         		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
-
+	
         res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
         conn.close()
         #print(res)
         return res
-
-	# accept's a list of the Answer objects and inserts each into the database
+	
+	# accept's a list of the Answer objects and inserts each into the database 
 def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
@@ -48,22 +48,33 @@ def submitAnswers(ActiveInterview):
         	conn.excute("INSERT INTO InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)",(ActiveInterview.getInterviewID(), Question.getQuestionID(), Question.getUserAnswer()))
         conn.commit()
         conn.close()
-
+		
 	# accept's an activeInterview object and inserts the data into the database
-def makeNewInterview(activeInterview):
+def makeNewInterview(activeInterview, UserID):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
         qlist = activeInterview.getQuestions()
-        interview = activeInterview.getInterview()
-        IntID = self.conn.execute("insert into INTERVIEWS(ID,NAME,LENGTH) values (?,?,?)", (None,interview.getName(),interview.getNumQs())).lastrowid
-        for num,q in qlist:
-        	self.conn.execute("insert into QUESTIONS(QUESTIONID, INTERVIEWID, QUESTION, QNUMBER) values (?,?,?,?)", (None,IntID,q.getQuestion(),num))
+        IntID = conn.execute("insert into InterviewInfo(InterviewID,InterviewName) values (?,?)", (None, activeInterview.getInterviewName())).lastrowid
+        for Q in qlist:
+        	QID = conn.execute("insert into QuestionInfo(QuestionID, QuestionText) values (?,?)", (None,Q.getQuestionText())).lastrowid
+			conn.execute("insert into InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)", (IntID, QID, None))
+			alist = Q.getAnswers()
+			for A in alist:
+				AID = conn.execute("insert into AnswerInfo(AnswerID, AnswerText) values(?,?)", (None, A.getAnswerText())).lastrowid
+				conn.execute("insert into QuestionRelation(QuestionID, AnswerID) values (?,?)", (QID, AID))
+		conn.execute("insert into UserInformation(InterviewID) where UserID = ? vaules(?)", (UserID, IntID))
         conn.commit()
         conn.close()
-
-
-
-
+	
+	
+	
+		
 
 #getUser('ccastino','pw123')
 #getInterview('1')
+
+
+
+
+
+
