@@ -17,6 +17,7 @@ def credentials():
     client_socket.send(answer_string.encode())
 #string printing loop that prints question from server and returns string answer
 def startinterview():
+    print(client_socket.recv(1024).decode())
     interview_string=client_socket.recv(1024)
     while (interview_string!="endinterview"):#keyword could be swapped out for anything
         print(interview_string.decode())
@@ -44,6 +45,5 @@ if __name__ == "__main__":
     client_socket.connect((_HOST, _PORT))
     in_data = client_socket.recv(1024)
     print(in_data.decode())
-
-
     credentials()
+    startinterview()

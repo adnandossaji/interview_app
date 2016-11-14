@@ -3,6 +3,9 @@ import threading
 import time
 import sqlite3
 import db_interaction
+import user
+import interview
+import answer
 
 # Create a threading.Thread class
 class ServerThread(threading.Thread):
@@ -11,8 +14,13 @@ class ServerThread(threading.Thread):
         self.client_socket = client_socket
         self._USER_NAME = ''
         self._USER_PW = ''
-        #self.database=db_interaction()
+        self.currentuser=None
     def giveInterview(self):
+        answerlist=[]
+        i=1
+        currentinterview=db_interaction.getInterview(self.currentuser.getIntID())
+        greetingString="Welcome to your interview!\n"+currentinterview.getInterviewName()+"\n"
+        self.client_socket.send(greetingString.encode())
         return
 
     def validate(self):
@@ -28,8 +36,8 @@ class ServerThread(threading.Thread):
         print('SERVER > Password :', self._USER_PW)
         # VALIDATE PASSWORD
         # VALIDATION STATUS
-        print(self._USER_NAME,self._USER_PW)
-        if True:
+        self.currentuser=db_interaction.getUser(self._USER_NAME,self._USER_PW)
+        if self.currentuser!= None:
             return 1
             #return 2 # Testing
         time.sleep(0.1)
@@ -55,6 +63,7 @@ class ServerThread(threading.Thread):
             print('Invalid username or password')
             self.terminate_session()
             return
+        self.giveInterview()
 
 
         self.terminate_session()
