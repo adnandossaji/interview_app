@@ -15,6 +15,10 @@ class ServerThread(threading.Thread):
         self._USER_NAME = ''
         self._USER_PW = ''
         self.currentuser=None
+    ##################################################
+    ##Helper function for giveInterview. Handles all##
+    ##looping needed to assure a correct response   ##
+    ##################################################
     def sendQuestion(self,messagestring,sendAnswers):
         correct=False
         error=False
@@ -33,6 +37,14 @@ class ServerThread(threading.Thread):
 
 
         return response
+        #############################################################
+        ##Gives the interview by getting the question data, storing##
+        ##it in tuples, and sending the question as text. Once a   ##
+        ##response is received, it validates the response and then ##
+        ##sends another question. Answer data is stored in tuples. ##
+        ##Uses key phrase to end the interview                     ##
+        ## -Brandon M                                              ##
+        #############################################################
     def giveInterview(self):
         answerlist=[]
         i=1
@@ -73,6 +85,8 @@ class ServerThread(threading.Thread):
         print('SERVER > Password :', self._USER_PW)
         # VALIDATE PASSWORD
         # VALIDATION STATUS
+
+        ###Checks to make sure that user is in the database###
         self.currentuser=db_interaction.getUser(self._USER_NAME,self._USER_PW)
         if self.currentuser!= None:
             return 1
@@ -100,6 +114,9 @@ class ServerThread(threading.Thread):
             print('Invalid username or password')
             self.terminate_session()
             return
+        ##This assumes that the user is trying to take an interview. Additional##
+        ##user options could be added easily by making the giveInterview call  ##
+        ##conditional                                                          ##
         self.giveInterview()
 
 
