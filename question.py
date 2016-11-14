@@ -4,11 +4,14 @@ class Question():
 	def __init__(self,QuestionID,QuestionText,Answers=None):
 		self.qid = QuestionID
 		self.question = QuestionText
-		self.answers = Answers if Answers == None else []
+		self.answers = [] if Answers == None else Answers
 		self.answered = 0
 		
 	def __str__(self):
-		return 'QID: ' + str(self.qid) + ' IntID: ' + str(self.intid) + ' Question: ' + str(self.question) + ' Qnum: ' + str(self.qnum) + ' AnsID: ' + str(self.aid)
+		ret = "\n"
+		for answer in self.answers:
+			ret = ret + '\t\t' + str(answer) + '\n'
+		return '{ QID: ' + str(self.qid) + ' Question: ' + str(self.question) + ret + '}'
 		
 	def getQuestionID(self):
 		return self.qid

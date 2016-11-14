@@ -25,11 +25,20 @@ class ActiveInterview():
 		
 	def getQuestions(self):
 		return self.questions
+		
+	def answerQuestion(self, AnswerID):
+		
 	
 	# returns the current question and increments the curQ
 	def getNextQuestion(self):
 		res = self.questions[self.iter]
 		self.iter = self.iter + 1
 		return res
+		
+	def __str__(self):
+		ret = '\n'
+		for question in self.questions:
+			ret = ret + '\t' + str(question) + '\n'
+		return '{ InterviewID: ' + self.interviewID + ' InterviewName: ' + self.interviewName + ret + '}'
 		
 	

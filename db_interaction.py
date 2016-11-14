@@ -23,7 +23,7 @@ def getInterview(InterviewID):
         conn.row_factory = sqlite3.Row
         SELECT = "SELECT ii.InterviewName, ir.QuestionID, qi.QuestionText, qr.AnswerID, a.AnswerText "
         FROM = "FROM InterviewInfo ii "
-        JOINS = "INNER JOIN InterviewRelation ir ON ii.InterviewID = ir.InterviewID INNER JOIN QuestionInfo qi ON ir.QuestionID = qi.QuestionID INNER JOIN QuestionRelation qr ON qi.QuestionID = qr.QuestionID INNER JOIN Answers a on qr.AnswerID = a.AnswerID "
+        JOINS = "INNER JOIN InterviewRelation ir ON ii.InterviewID = ir.InterviewID INNER JOIN QuestionInfo qi ON ir.QuestionID = qi.QuestionID INNER JOIN QuestionRelation qr ON qi.QuestionID = qr.QuestionID INNER JOIN AnswerInfo a on qr.AnswerID = a.AnswerID "
         rows = conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
         InterviewName = rows[0]['InterviewName']
         Questions = {}
@@ -37,13 +37,14 @@ def getInterview(InterviewID):
 	
         res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
         conn.close()
+        print(res)
         return res
 	
 	# accept's a list of the Answer objects and inserts each into the database 
-def submitAnswers(Answers):
+def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
-        for Answer in Answers:
+        for Question in ActiveInterview.getQuestions:
         	conn.excute("insert into ANSWERS(USERID, ANSWER, QUESTIONID) values (?,?,?)",(Answer.getUID(), Answer.getAnswer(), Answer.getQID()))
         conn.commit()
         conn.close()
@@ -65,6 +66,7 @@ def makeNewInterview(activeInterview):
 		
 
 getUser('ccastino','pw123')
+getInterview('1')
 
 
 
