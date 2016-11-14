@@ -19,12 +19,13 @@ def credentials():
 def startinterview():
     print(client_socket.recv(1024).decode())
     interview_string=client_socket.recv(1024)
-    while (interview_string!="endinterview"):#keyword could be swapped out for anything
+    while (interview_string.decode()!="End of Interview"):#keyword could be swapped out for anything
         print(interview_string.decode())
         answer_string=str(input("Answer: "))
         client_socket.send(answer_string.encode())
         interview_string=client_socket.recv(1024)
-    return
+    print("End of Interview")
+    return 1
 
 if __name__ == "__main__":
     import sys
@@ -47,3 +48,4 @@ if __name__ == "__main__":
     print(in_data.decode())
     credentials()
     startinterview()
+    print("Logging Out...")

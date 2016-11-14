@@ -17,6 +17,7 @@ class ServerThread(threading.Thread):
         self.currentuser=None
     def sendQuestion(self,messagestring,sendAnswers):
         correct=False
+        error=False
         while correct==False:
             self.client_socket.send(messagestring.encode())
             response=self.client_socket.recv(1024).decode()
@@ -26,13 +27,17 @@ class ServerThread(threading.Thread):
                 if response == tup[2]:
                     correct = True
                     return response
+                elif error==False:
+                    error=True
+                    messagestring="\nINVALID RESPONSE\nPlease enter a letter exactly as it appears above\n"+messagestring
+
 
         return response
     def giveInterview(self):
         answerlist=[]
         i=1
         currentinterview=db_interaction.getInterview(self.currentuser.getIntID())
-        greetingString="Welcome to your interview!\n"+currentinterview.getInterviewName()+"\n"
+        greetingString="Welcome to your interview!\n"+currentinterview.getInterviewName()
         self.client_socket.send(greetingString.encode())
         currentQuestion=currentinterview.getNextQuestion()
         while currentQuestion != "End of Interview":
@@ -42,12 +47,17 @@ class ServerThread(threading.Thread):
             for a in answers:
                 sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
                 firstletter=chr(ord(firstletter)+1)
-            messagestring=currentQuestion.getQuestionText()+"\n"
+            messagestring="\n"+currentQuestion.getQuestionText()+"\n"
             for tup in sendAnswers:
                 messagestring=messagestring+str(tup[2])+": "+str(tup[0])+"\n"
             response=self.sendQuestion(messagestring,sendAnswers)
-            print("We made it!")
+            responseID=""
+            for tup in sendAnswers:
+                if tup[2]==response:
+                    responseID=tup[1]
+            #currentinterview.answerQuestion(responseID)
             currentQuestion=currentinterview.getNextQuestion()
+        self.client_socket.send("End of Interview".encode())
         return
 
     def validate(self):

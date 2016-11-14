@@ -16,8 +16,8 @@ def getUser( username, password):
         #print(res)
         conn.close()
         return res
-	
-	
+
+
 def getInterview(InterviewID):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
@@ -27,20 +27,20 @@ def getInterview(InterviewID):
         rows = conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
         InterviewName = rows[0]['InterviewName']
         Questions = {}
-        
+
         for row in rows:
         	if row['QuestionID'] in Questions:
         		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
         	else :
         		Questions[row['QuestionID']] = question.Question(row['QuestionID'],row['QuestionText'])
         		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
-	
+
         res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
         conn.close()
         #print(res)
         return res
-	
-	# accept's a list of the Answer objects and inserts each into the database 
+
+	# accept's a list of the Answer objects and inserts each into the database
 def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
@@ -48,7 +48,7 @@ def submitAnswers(ActiveInterview):
         	conn.excute("INSERT INTO InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)",(ActiveInterview.getInterviewID(), Question.getQuestionID(), Question.getUserAnswer()))
         conn.commit()
         conn.close()
-		
+
 	# accept's an activeInterview object and inserts the data into the database
 def makeNewInterview(activeInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
@@ -60,16 +60,10 @@ def makeNewInterview(activeInterview):
         	self.conn.execute("insert into QUESTIONS(QUESTIONID, INTERVIEWID, QUESTION, QNUMBER) values (?,?,?,?)", (None,IntID,q.getQuestion(),num))
         conn.commit()
         conn.close()
-	
-	
-	
-		
+
+
+
+
 
 #getUser('ccastino','pw123')
 #getInterview('1')
-
-
-
-
-
-
