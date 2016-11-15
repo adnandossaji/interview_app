@@ -19,10 +19,10 @@ def credentials():
     client_socket.send(answer_string.encode())
 #string printing loop that prints question from server and returns string answer
 def startinterview():
-    print(client_socket.recv(1024).decode())
+    greeting = client_socket.recv(1024).decode()
+    if (greeting == "Welcome to your interview!"): print(greeting)
+    if (len(greeting) == 0): return CredentialsException()
     interview_string=client_socket.recv(1024)
-
-    if (len(interview_string.decode()) == 0): return CredentialsException()
 
     while (interview_string.decode()!="End of Interview"):#keyword could be swapped out for anything
         print(interview_string.decode())
@@ -30,7 +30,6 @@ def startinterview():
         client_socket.send(answer_string.encode())
         interview_string=client_socket.recv(1024)
     print("End of Interview")
-    return 1
 
 if __name__ == "__main__":
     import sys

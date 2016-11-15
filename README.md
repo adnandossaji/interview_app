@@ -26,9 +26,10 @@ NOTE:  List one group member per line
  
 Group Member		  Contribution
 
-Adnan Dossaji         Part of database structure (Pair programming w/ J.King)
+Adnan Dossaji         Main Server/ServerThread/Client framework (REVAMPED by James King)
+                      Part of database structure (Pair programming w/ James King)
                       First iteration of User class (id, username, password)
-                      Added Error Handling for CredentialExceptions
+                      Added init. Error Handling for CredentialExceptions
 
 Arshad Khan
 

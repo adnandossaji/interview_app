@@ -117,7 +117,9 @@ class ServerThread(threading.Thread):
             return
         ##This assumes that the user is trying to take an interview. Additional##
         ##user options could be added easily by making the giveInterview call  ##
-        ##conditional                                                          ##
+        ##conditional   
+
+        # if (self.currentuser.getPer() !=)
         self.giveInterview()
 
 
