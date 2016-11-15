@@ -1,3 +1,5 @@
+from interview_error import CredentialsException
+
 def terminate_session():
     print('Terminating connection to server')
     for i in range(0,10):
@@ -19,6 +21,9 @@ def credentials():
 def startinterview():
     print(client_socket.recv(1024).decode())
     interview_string=client_socket.recv(1024)
+
+    if (len(interview_string.decode()) == 0): return CredentialsException()
+
     while (interview_string.decode()!="End of Interview"):#keyword could be swapped out for anything
         print(interview_string.decode())
         answer_string=str(input("Answer: "))

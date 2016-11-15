@@ -6,6 +6,7 @@ import db_interaction
 import user
 import interview
 import answer
+from interview_error import CredentialsException
 
 # Create a threading.Thread class
 class ServerThread(threading.Thread):
@@ -111,7 +112,7 @@ class ServerThread(threading.Thread):
         if _LOGIN_STATUS == True:
             print('User', self._USER_NAME, 'has a log in status of', str(_LOGIN_STATUS))
         else:
-            print('Invalid username or password')
+            CredentialsException()
             self.terminate_session()
             return
         ##This assumes that the user is trying to take an interview. Additional##
