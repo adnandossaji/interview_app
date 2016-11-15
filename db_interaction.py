@@ -4,6 +4,7 @@ import answer
 import question
 import interview
 import active_interview
+from interview_error import CredentialsException
 
 
 def getUser( username, password):
@@ -11,11 +12,13 @@ def getUser( username, password):
         conn.row_factory = sqlite3.Row
         select = "SELECT UserID, UserName, UserRoleID, InterviewID "
         table = "FROM UserInformation "
+
         row = conn.execute(select + table + "WHERE UserName = ? AND Password = ?",(username,password)).fetchone()
-        res = user.User(row['UserID'],row['UserName'],row['UserRoleID'],row['InterviewID'])
-        #print(res)
-        conn.close()
-        return res
+
+        if (row != None):
+                res = user.User(row['UserID'],row['UserName'],row['UserRoleID'],row['InterviewID'])
+                conn.close()
+                return res
 	
 	
 def getInterview(InterviewID):
@@ -37,7 +40,6 @@ def getInterview(InterviewID):
 	
         res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
         conn.close()
-        print(res)
         return res
 	
 	# accept's a list of the Answer objects and inserts each into the database 

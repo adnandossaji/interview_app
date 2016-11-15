@@ -25,7 +25,9 @@ Bob Hackworth    wrote main() and the point scoring functions
 NOTE:  List one group member per line
  
 Group Member		  Contribution
-Adnan Dossaji
+
+Adnan Dossaji         Part of database structure (Pair programming w/ J.King)
+                      First iteration of User class (id, username, password)
 
 Arshad Khan
 

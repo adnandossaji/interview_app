@@ -87,10 +87,10 @@ class ServerThread(threading.Thread):
         # VALIDATION STATUS
 
         ###Checks to make sure that user is in the database###
-        self.currentuser=db_interaction.getUser(self._USER_NAME,self._USER_PW)
+        self.currentuser = db_interaction.getUser(self._USER_NAME,self._USER_PW)
         if self.currentuser!= None:
-            return 1
-            #return 2 # Testing
+            return True
+        return False
         time.sleep(0.1)
 
     def terminate_session(self):
@@ -108,7 +108,7 @@ class ServerThread(threading.Thread):
         self.client_socket.send(('Welcome to the Interview Portal').encode())
         time.sleep(0.1)
         _LOGIN_STATUS = self.validate()
-        if _LOGIN_STATUS == 1:
+        if _LOGIN_STATUS == True:
             print('User', self._USER_NAME, 'has a log in status of', str(_LOGIN_STATUS))
         else:
             print('Invalid username or password')
