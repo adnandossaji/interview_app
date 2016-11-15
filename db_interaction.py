@@ -19,6 +19,18 @@ def getUser( username, password):
                 res = user.User(row['UserID'],row['UserName'],row['UserRoleID'],row['InterviewID'])
                 conn.close()
                 return res
+
+def getUserRole(userRoleID):
+        conn= sqlite3.connect( 'interview_portal.db' )
+        conn.row_factory = sqlite3.Row
+        select = "SELECT UserRoleDescription "
+        table = "FROM UserRole "
+
+        print(userRoleID, type(userRoleID))
+
+        row = conn.execute(select + table + "WHERE UserRoleID = ?",(str(userRoleID))).fetchone()
+
+        return row['UserRoleDescription']
 	
 	
 def getInterview(InterviewID):

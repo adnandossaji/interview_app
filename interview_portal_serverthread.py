@@ -117,10 +117,12 @@ class ServerThread(threading.Thread):
             return
         ##This assumes that the user is trying to take an interview. Additional##
         ##user options could be added easily by making the giveInterview call  ##
-        ##conditional   
+        ##conditional
 
-        # if (self.currentuser.getPer() !=)
-        self.giveInterview()
 
+
+        self.client_socket.send(('Logged in as a {}'.format(db_interaction.getUserRole(self.currentuser.getPer()))).encode())
+
+        if (self.currentuser.getPer() == 4): self.giveInterview()
 
         self.terminate_session()

@@ -51,5 +51,8 @@ if __name__ == "__main__":
     in_data = client_socket.recv(1024)
     print(in_data.decode())
     credentials()
-    startinterview()
+
+    print(client_socket.recv(1024).decode())
+
+    # startinterview()
     print("Logging Out...")
