@@ -8,3 +8,39 @@
 * All parties using the structured interviewing system must be authenticated.
 * Users must also be authorized, meaning that only the attorneys and their designated staff members may create, modify, or delete structured interviews, as well as review the answers provided by interviewees.
 
+CSC 376 Distributed Systems
+Fall 2016-2017
+DePaul University
+Karen Heart, Instructor
+
+Group Project Credits
+
+Project Name: Structured Interview Portal
+
+List each group member, followed by a brief description of 
+the member's coding contribution
+Example: 
+Bob Hackworth    wrote main() and the point scoring functions
+ 
+NOTE:  List one group member per line
+ 
+Group Member		  Contribution
+Adnan Dossaji
+
+Arshad Khan
+
+Brandon Meng
+
+Cody Castino
+
+James King         Main Server/ServerThread/Client framework, database structure
+
+Karen Cardenas
+
+Keaton Zonca
+
+Khalid Alrawaf
+
+Matthew Current
+
+Tom Plutz
