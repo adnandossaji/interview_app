@@ -28,6 +28,7 @@ Group Member		  Contribution
 
 Adnan Dossaji         Part of database structure (Pair programming w/ J.King)
                       First iteration of User class (id, username, password)
+                      Added Error Handling for CredentialExceptions
 
 Arshad Khan
 
