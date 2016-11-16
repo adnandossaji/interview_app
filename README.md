@@ -49,6 +49,8 @@ Group Member		  Contribution
 ##Keaton Zonca
 
 ##Khalid Alrawaf
+1. def validate()
+2. authentication process
 
 ##Matthew Current
 
