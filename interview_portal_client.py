@@ -20,8 +20,7 @@ def credentials():
 #string printing loop that prints question from server and returns string answer
 def startinterview():
     greeting = client_socket.recv(1024).decode()
-    if (greeting == "Welcome to your interview!"): print(greeting)
-    if (len(greeting) == 0): return CredentialsException()
+    if (len(greeting) != 0): print(greeting)
     interview_string=client_socket.recv(1024)
 
     while (interview_string.decode()!="End of Interview"):#keyword could be swapped out for anything
@@ -30,6 +29,17 @@ def startinterview():
         client_socket.send(answer_string.encode())
         interview_string=client_socket.recv(1024)
     print("End of Interview")
+
+def validate(loggedInAs):
+    if (len(loggedInAs) == 0):
+        CredentialsException()
+        return False
+    print("Logged in as a", loggedInAs)
+    return True
+
+def createInterview():
+    greeting = client_socket.recv(1024).decode()
+    if (len(greeting) != 0): print(greeting)
 
 if __name__ == "__main__":
     import sys
@@ -51,8 +61,8 @@ if __name__ == "__main__":
     in_data = client_socket.recv(1024)
     print(in_data.decode())
     credentials()
-
-    print(client_socket.recv(1024).decode())
-
-    # startinterview()
+    loggedInAs = client_socket.recv(1024).decode()
+    if (validate(loggedInAs)):
+        if (loggedInAs == "Interviewee"): startinterview()
+        elif (loggedInAs == "Lawyer"): createInterview()
     print("Logging Out...")

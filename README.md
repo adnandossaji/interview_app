@@ -26,25 +26,28 @@ NOTE:  List one group member per line
  
 Group Member		  Contribution
 
-Adnan Dossaji         Main Server/ServerThread/Client framework (REVAMPED by James King)
-                      Part of database structure (Pair programming w/ James King)
-                      First iteration of User class (id, username, password)
-                      Added init. Error Handling for CredentialExceptions
+##Adnan Dossaji
 
-Arshad Khan
+1. Main Server/ServerThread/Client framework (REVAMPED by James King)
+2. Part of database structure (Pair programming w/ James King)
+3. First iteration of User class (id, username, password)
+4. Added init. Error Handling for CredentialExceptions
+5. Added init. lawyer interface (Work in progress)
 
-Brandon Meng
+##Arshad Khan
 
-Cody Castino
+##Brandon Meng
 
-James King         Main Server/ServerThread/Client framework, database structure
+##Cody Castino
 
-Karen Cardenas
+##James King         Main Server/ServerThread/Client framework, database structure
 
-Keaton Zonca
+##Karen Cardenas
 
-Khalid Alrawaf
+##Keaton Zonca
 
-Matthew Current
+##Khalid Alrawaf
 
-Tom Plutz
+##Matthew Current
+
+##Tom Plutz

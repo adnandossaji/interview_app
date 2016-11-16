@@ -26,8 +26,6 @@ def getUserRole(userRoleID):
         select = "SELECT UserRoleDescription "
         table = "FROM UserRole "
 
-        print(userRoleID, type(userRoleID))
-
         row = conn.execute(select + table + "WHERE UserRoleID = ?",(str(userRoleID))).fetchone()
 
         return row['UserRoleDescription']

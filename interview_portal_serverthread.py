@@ -73,6 +73,10 @@ class ServerThread(threading.Thread):
         self.client_socket.send("End of Interview".encode())
         return
 
+    def createInterview(self):
+        greetingString="Welcome to the interview creator!\n"
+        self.client_socket.send(greetingString.encode())
+
     def validate(self):
         time.sleep(0.1)
         self.client_socket.send(('Username > ').encode())
@@ -119,10 +123,9 @@ class ServerThread(threading.Thread):
         ##user options could be added easily by making the giveInterview call  ##
         ##conditional
 
-
-
-        self.client_socket.send(('Logged in as a {}'.format(db_interaction.getUserRole(self.currentuser.getPer()))).encode())
+        self.client_socket.send(('{}'.format(db_interaction.getUserRole(self.currentuser.getPer()))).encode())
 
         if (self.currentuser.getPer() == 4): self.giveInterview()
+        elif (self.currentuser.getPer() == 2): self.createInterview()
 
         self.terminate_session()
