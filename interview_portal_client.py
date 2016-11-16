@@ -40,6 +40,13 @@ def validate(loggedInAs):
 def createInterview():
     greeting = client_socket.recv(1024).decode()
     if (len(greeting) != 0): print(greeting)
+    interview_string=''
+
+    while (interview_string!="End of Interview"):
+        answer_string=str(input("CLIENT > "))
+        client_socket.send(answer_string.encode())
+        interview_string=client_socket.recv(1024).decode()
+        print(interview_string)
 
 if __name__ == "__main__":
     import sys

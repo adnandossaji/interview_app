@@ -41,6 +41,7 @@ Group Member		  Contribution
 ##Cody Castino
 
 ##James King
+
 1. Final iteration of Server/ServerThread/Client framework
 2. Main database structure
 
