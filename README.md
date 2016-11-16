@@ -28,7 +28,7 @@ Group Member		  Contribution
 
 ##Adnan Dossaji
 
-1. Main Server/ServerThread/Client framework (REVAMPED by James King)
+1. Second iteration of Server/ServerThread/Client framework (REVAMPED by James King)
 2. Part of database structure (Pair programming w/ James King)
 3. First iteration of User class (id, username, password)
 4. Added init. Error Handling for CredentialExceptions
@@ -40,7 +40,9 @@ Group Member		  Contribution
 
 ##Cody Castino
 
-##James King         Main Server/ServerThread/Client framework, database structure
+##James King
+1. Final iteration of Server/ServerThread/Client framework
+2. Main database structure
 
 ##Karen Cardenas
 
