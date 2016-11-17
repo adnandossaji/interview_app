@@ -48,6 +48,8 @@ Group Member		  Contribution
 ##Karen Cardenas
 
 ##Keaton Zonca
+1. added logging to server and serverThread
+2. logging.ini
 
 ##Khalid Alrawaf
 1. def validate()
