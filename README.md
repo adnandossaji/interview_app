@@ -50,7 +50,12 @@ Group Member		  Contribution
 ##Keaton Zonca
 
 ##Khalid Alrawaf
+1. def validate()
+2. authentication process
 
 ##Matthew Current
 
 ##Tom Plutz
+1. Wrote the encryption class.
+2. Worked on the key exchange between (client and server) and (server and db). (Work in Process)
+3. Wrote function to import and install needed modules using pip. (havent uploaded yet, want to finish key exchange first)
