@@ -6,8 +6,9 @@ import db_interaction
 import user
 import interview
 import answer
-import question
-import active_interview
+import logging
+import logging.config
+logger = logging.getLogger(__name__)
 from interview_error import CredentialsException
 
 # Create a threading.Thread class
@@ -40,7 +41,6 @@ class ServerThread(threading.Thread):
 
 
         return response
-
         #############################################################
         ##Gives the interview by getting the question data, storing##
         ##it in tuples, and sending the question as text. Once a   ##
@@ -53,6 +53,7 @@ class ServerThread(threading.Thread):
         answerlist=[]
         i=1
         currentinterview=db_interaction.getInterview(self.currentuser.getIntID())
+        logger.info('User {} started interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
         greetingString="Welcome to your interview!\n"+currentinterview.getInterviewName()
         self.client_socket.send(greetingString.encode())
         currentQuestion=currentinterview.getNextQuestion()
@@ -74,82 +75,12 @@ class ServerThread(threading.Thread):
             #currentinterview.answerQuestion(responseID)
             currentQuestion=currentinterview.getNextQuestion()
         self.client_socket.send("End of Interview".encode())
+        logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
         return
 
     def createInterview(self):
         greetingString="Welcome to the interview creator!\n"
         self.client_socket.send(greetingString.encode())
-
-        askQuestionString="What is the name of this interview?"
-        self.client_socket.send(askQuestionString.encode())
-
-        name = self.client_socket.recv(1024).decode()
-        # interview = ActiveInterview()
-        print(name)
-        questions = []
-        answers = []
-
-        nextQ = True
-        nextA = True
-
-        while (nextQ):
-            msg="Please type a QUESTION?"
-            self.client_socket.send(msg.encode())
-            question = self.client_socket.recv(1024).decode()
-            questions.append(question + "?")
-            print(question)
-            while(nextA):
-                msg="Please type an ANSWER?\n"
-                self.client_socket.send(msg.encode())
-
-                answer = self.client_socket.recv(1024).decode()
-
-                answers.append(answer)
-                print(answer)
-
-                check = True
-
-                while(check):
-
-                    msg="Would you like to add another ANSWER (Y/N)?\n"
-                    self.client_socket.send(msg.encode())
-
-                    checker = self.client_socket.recv(1024).decode()
-
-                    if (checker == 'Y'):
-                        check = False
-                        nextA = True
-                    elif (checker == 'N'):
-                        check = False
-                        nextA = False
-                        print("1")
-                    else:
-                        msg="Invalid Response?\n"
-                        self.client_socket.send(msg.encode())
-                        check = True
-
-            nextA = True
-            check2 = True
-
-            while(check2):
-
-                msg="Would you like to add another QUESTION (Y/N)?\n"
-                self.client_socket.send(msg.encode())
-                checker = self.client_socket.recv(1024).decode()
-
-                if (checker == 'Y'):
-                    check2 = False
-                    nextQ = True
-                elif (checker == 'N'):
-                    check2 = False
-                    nextQ = False
-                else:
-                    msg="Invalid Response?\n"
-                    self.client_socket.send(msg.encode())
-                    check = True
-
-        msg = "End of Interview"
-        self.client_socket.send(msg.encode())
 
     def validate(self):
         time.sleep(0.1)
@@ -174,9 +105,10 @@ class ServerThread(threading.Thread):
 
     def terminate_session(self):
         print('Terminating connection on', self.client_socket)
+        logger.info('connection terminated: {}'.format(self.client_socket))
         sys.stdout.flush()
         for i in range(0,10):
-            print('.', end sta='')
+            print('.', end = '')
             sys.stdout.flush()
             time.sleep(0.15)
         self.client_socket.close()
@@ -189,7 +121,9 @@ class ServerThread(threading.Thread):
         _LOGIN_STATUS = self.validate()
         if _LOGIN_STATUS == True:
             print('User', self._USER_NAME, 'has a log in status of', str(_LOGIN_STATUS))
+            logger.info('User {} has a login status of {}'.format(self._USER_NAME, str(_LOGIN_STATUS)))
         else:
+            logger.warning('Invalid login attempt with username {}'.format(self._USER_NAME))
             CredentialsException()
             self.terminate_session()
             return
