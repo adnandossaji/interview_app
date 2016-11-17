@@ -6,6 +6,8 @@ import db_interaction
 import user
 import interview
 import answer
+import question
+import active_interview
 import logging
 import logging.config
 logger = logging.getLogger(__name__)
@@ -41,6 +43,7 @@ class ServerThread(threading.Thread):
 
 
         return response
+
         #############################################################
         ##Gives the interview by getting the question data, storing##
         ##it in tuples, and sending the question as text. Once a   ##
@@ -82,6 +85,78 @@ class ServerThread(threading.Thread):
         greetingString="Welcome to the interview creator!\n"
         self.client_socket.send(greetingString.encode())
 
+        askQuestionString="What is the name of this interview?"
+        self.client_socket.send(askQuestionString.encode())
+
+        name = self.client_socket.recv(1024).decode()
+        # interview = ActiveInterview()
+        logger.warning('User {} created interview {}'.format(self._USER_NAME, name))
+        print(name)
+        questions = []
+        answers = []
+
+        nextQ = True
+        nextA = True
+
+        while (nextQ):
+            msg="Please type a QUESTION?"
+            self.client_socket.send(msg.encode())
+            question = self.client_socket.recv(1024).decode()
+            questions.append(question + "?")
+            print(question)
+            while(nextA):
+                msg="Please type an ANSWER?\n"
+                self.client_socket.send(msg.encode())
+
+                answer = self.client_socket.recv(1024).decode()
+
+                answers.append(answer)
+                print(answer)
+
+                check = True
+
+                while(check):
+
+                    msg="Would you like to add another ANSWER (Y/N)?\n"
+                    self.client_socket.send(msg.encode())
+
+                    checker = self.client_socket.recv(1024).decode()
+
+                    if (checker == 'Y'):
+                        check = False
+                        nextA = True
+                    elif (checker == 'N'):
+                        check = False
+                        nextA = False
+                        print("1")
+                    else:
+                        msg="Invalid Response?\n"
+                        self.client_socket.send(msg.encode())
+                        check = True
+
+            nextA = True
+            check2 = True
+
+            while(check2):
+
+                msg="Would you like to add another QUESTION (Y/N)?\n"
+                self.client_socket.send(msg.encode())
+                checker = self.client_socket.recv(1024).decode()
+
+                if (checker == 'Y'):
+                    check2 = False
+                    nextQ = True
+                elif (checker == 'N'):
+                    check2 = False
+                    nextQ = False
+                else:
+                    msg="Invalid Response?\n"
+                    self.client_socket.send(msg.encode())
+                    check = True
+
+        msg = "End of Interview"
+        self.client_socket.send(msg.encode())
+
     def validate(self):
         time.sleep(0.1)
         self.client_socket.send(('Username > ').encode())
@@ -108,7 +183,7 @@ class ServerThread(threading.Thread):
         logger.info('connection terminated: {}'.format(self.client_socket))
         sys.stdout.flush()
         for i in range(0,10):
-            print('.', end = '')
+            print('.', end='')
             sys.stdout.flush()
             time.sleep(0.15)
         self.client_socket.close()
