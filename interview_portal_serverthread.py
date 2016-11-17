@@ -84,7 +84,7 @@ class ServerThread(threading.Thread):
         self.client_socket.send(askQuestionString.encode())
 
         name = self.client_socket.recv(1024).decode()
-        interview = ActiveInterview()
+        # interview = ActiveInterview()
         print(name)
         questions = []
         answers = []
@@ -176,7 +176,7 @@ class ServerThread(threading.Thread):
         print('Terminating connection on', self.client_socket)
         sys.stdout.flush()
         for i in range(0,10):
-            print('.', end='')
+            print('.', end sta='')
             sys.stdout.flush()
             time.sleep(0.15)
         self.client_socket.close()
