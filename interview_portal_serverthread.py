@@ -12,6 +12,10 @@ import logging
 import logging.config
 logger = logging.getLogger(__name__)
 from interview_error import CredentialsException
+from encrypt import Encrypt
+from DiffieHellman import diffieHellman
+
+
 
 # Create a threading.Thread class
 class ServerThread(threading.Thread):
@@ -199,8 +203,20 @@ class ServerThread(threading.Thread):
         print('Socket closed')
         sys.stdout.flush()
 
+    
+    def key_exchange(self):
+        dif = diffieHellman()
+        other_key = self.client_socket.recv(2048).decode()
+        other_key = int(other_key)
+        self.client_socket.send(str(dif.publicKey).encode())
+        key = dif.genKey(other_key)
+        return key
+
+
     def run(self):
         self.client_socket.send(('Welcome to the Interview Portal').encode())
+        key = self.key_exchange()
+        enc = Encrypt(key)
         time.sleep(0.1)
         _LOGIN_STATUS = self.validate()
         if _LOGIN_STATUS == True:
