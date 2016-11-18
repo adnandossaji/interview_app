@@ -5,9 +5,9 @@ import sqlite3
 import db_interaction
 import user
 import interview
-import answer
-import question
-import active_interview
+from answer import *
+from question import *
+from active_interview import *
 import logging
 import logging.config
 logger = logging.getLogger(__name__)
@@ -89,28 +89,28 @@ class ServerThread(threading.Thread):
         self.client_socket.send(askQuestionString.encode())
 
         name = self.client_socket.recv(1024).decode()
-        # interview = ActiveInterview()
+
         logger.warning('User {} created interview {}'.format(self._USER_NAME, name))
         print(name)
         questions = []
-        answers = []
 
         nextQ = True
         nextA = True
 
         while (nextQ):
+            answers = []
             msg="Please type a QUESTION?"
             self.client_socket.send(msg.encode())
             question = self.client_socket.recv(1024).decode()
-            questions.append(question + "?")
             print(question)
             while(nextA):
                 msg="Please type an ANSWER?\n"
                 self.client_socket.send(msg.encode())
 
                 answer = self.client_socket.recv(1024).decode()
+                answerObj = Answer(1000, answer)
 
-                answers.append(answer)
+                answers.append(answerObj)
                 print(answer)
 
                 check = True
@@ -134,6 +134,8 @@ class ServerThread(threading.Thread):
                         self.client_socket.send(msg.encode())
                         check = True
 
+            questionObj = Question(1000,question,answers)
+            questions.append(questionObj)
             nextA = True
             check2 = True
 
@@ -154,8 +156,15 @@ class ServerThread(threading.Thread):
                     self.client_socket.send(msg.encode())
                     check = True
 
+        interview = ActiveInterview(1000, name, questions)
+
+        print(questions)
+
+        db_interaction.makeNewInterview(interview, self.currentuser.getIntID())
         msg = "End of Interview"
         self.client_socket.send(msg.encode())
+
+
 
     def validate(self):
         time.sleep(0.1)

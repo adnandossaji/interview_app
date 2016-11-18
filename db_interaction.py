@@ -69,12 +69,12 @@ def makeNewInterview(activeInterview, UserID):
         IntID = conn.execute("insert into InterviewInfo(InterviewID,InterviewName) values (?,?)", (None, activeInterview.getInterviewName())).lastrowid
         for Q in qlist:
                 QID = conn.execute("insert into QuestionInfo(QuestionID, QuestionText) values (?,?)", (None,Q.getQuestionText())).lastrowid
-                conn.execute("insert into InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)", (IntID, QID, None))	
+                conn.execute("insert into InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)", (IntID, QID, -1))
                 alist = Q.getAnswers()
                 for A in alist:
                 	AID = conn.execute("insert into AnswerInfo(AnswerID, AnswerText) values(?,?)", (None, A.getAnswerText())).lastrowid
                 	conn.execute("insert into QuestionRelation(QuestionID, AnswerID) values (?,?)", (QID, AID))
-                conn.execute("insert into UserInformation(InterviewID) where UserID = ? vaules(?)", (UserID, IntID))
+                # conn.execute("insert into UserInformation(InterviewID) where UserID = ? vaules(?)", (UserID, IntID))
         conn.commit()
         conn.close()
 	

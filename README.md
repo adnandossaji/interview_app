@@ -27,7 +27,6 @@ NOTE:  List one group member per line
 Group Member		  Contribution
 
 ##Adnan Dossaji
-
 1. Second iteration of Server/ServerThread/Client framework (REVAMPED by James King)
 2. Part of database structure (Pair programming w/ James King)
 3. First iteration of User class (id, username, password)
@@ -41,7 +40,6 @@ Group Member		  Contribution
 ##Cody Castino
 
 ##James King
-
 1. Final iteration of Server/ServerThread/Client framework
 2. Main database structure
 
