@@ -47,12 +47,22 @@ def createInterview():
         client_socket.send(answer_string.encode())
         interview_string=client_socket.recv(1024).decode()
         print(interview_string)
+        
+def key_exchange():
+    dif = diffieHellman()
+    client_socket.send(str(dif.publicKey).encode())
+    other_key = client_socket.recv(2048).decode()
+    other_key = int(other_key)
+    key = dif.genKey(other_key)
+    return key
 
 if __name__ == "__main__":
     import sys
     import socket
     import time
     from argparse import ArgumentParser
+    from DiffieHellman import diffieHellman
+    from encrypt import Encrypt
 
     parser = ArgumentParser(description = 'CSC 376 Final Project : Interview Portal')
     parser.add_argument('host', type = str, help = 'Host Address of the Server')
@@ -67,6 +77,8 @@ if __name__ == "__main__":
     client_socket.connect((_HOST, _PORT))
     in_data = client_socket.recv(1024)
     print(in_data.decode())
+    key = key_exchange()
+    enc = Encrypt(key)
     credentials()
     loggedInAs = client_socket.recv(1024).decode()
     if (validate(loggedInAs)):
