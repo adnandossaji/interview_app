@@ -103,12 +103,12 @@ class ServerThread(threading.Thread):
 
         while (nextQ):
             answers = []
-            msg="Please type a QUESTION?"
+            msg="Please type a QUESTION"
             self.client_socket.send(msg.encode())
             question = self.client_socket.recv(1024).decode()
             print(question)
             while(nextA):
-                msg="Please type an ANSWER?\n"
+                msg="Please type an ANSWER\n"
                 self.client_socket.send(msg.encode())
 
                 answer = self.client_socket.recv(1024).decode()
@@ -203,7 +203,7 @@ class ServerThread(threading.Thread):
         print('Socket closed')
         sys.stdout.flush()
 
-    
+
     def key_exchange(self):
         dif = diffieHellman()
         other_key = self.client_socket.recv(2048).decode()
