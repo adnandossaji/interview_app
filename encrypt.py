@@ -26,5 +26,4 @@ class Encrypt:
         iv = ciphertext[:AES.block_size]
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         plaintext = cipher.decrypt(ciphertext[AES.block_size:])
-        return plaintext.decode().rstrip("\0")
-
+        return plaintext.decode("utf-8",'ignore').rstrip("\0")

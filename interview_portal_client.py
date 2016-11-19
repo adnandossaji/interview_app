@@ -12,22 +12,30 @@ def terminate_session():
 
 def credentials():
     prompt=client_socket.recv(1024)
-    answer_string=str(input(prompt.decode()))
-    client_socket.send(answer_string.encode())
+    prompt = enc.decrypt(prompt)
+    answer_string=str(input(prompt))
+    answer_string = enc.encrypt(answer_string)
+    client_socket.send(answer_string)
     prompt=client_socket.recv(1024)
-    answer_string=str(input(prompt.decode()))
-    client_socket.send(answer_string.encode())
+    prompt = enc.decrypt(prompt)
+    answer_string=str(input(prompt))
+    answer_string = enc.encrypt(answer_string)
+    client_socket.send(answer_string)
 #string printing loop that prints question from server and returns string answer
 def startinterview():
-    greeting = client_socket.recv(1024).decode()
+    greeting = client_socket.recv(1024)
+    greeting = enc.decrypt(greeting)
     if (len(greeting) != 0): print(greeting)
     interview_string=client_socket.recv(1024)
+    interview_string = enc.decrypt(interview_string)
 
-    while (interview_string.decode()!="End of Interview"):#keyword could be swapped out for anything
-        print(interview_string.decode())
+    while (interview_string !="End of Interview"):#keyword could be swapped out for anything
+        print(interview_string)
         answer_string=str(input("Answer: "))
-        client_socket.send(answer_string.encode())
-        interview_string=client_socket.recv(1024)
+        answer_string = enc.encrypt(answer_string)
+        client_socket.send(answer_string)
+        interview_string = client_socket.recv(1024)
+        interview_string = enc.decrypt(interview_string)
     print("End of Interview")
 
 def validate(loggedInAs):
@@ -38,14 +46,17 @@ def validate(loggedInAs):
     return True
 
 def createInterview():
-    greeting = client_socket.recv(1024).decode()
+    greeting = client_socket.recv(1024)
+    greeting = enc.decrypt(greeting)
     if (len(greeting) != 0): print(greeting)
     interview_string=''
 
     while (interview_string!="End of Interview"):
         answer_string=str(input("CLIENT > "))
-        client_socket.send(answer_string.encode())
-        interview_string=client_socket.recv(1024).decode()
+        answer_string = enc.encrypt(answer_string)
+        client_socket.send(answer_string)
+        interview_string = client_socket.recv(1024)
+        interview_string = enc.decrypt(interview_string)
         print(interview_string)
         
 def key_exchange():
@@ -63,7 +74,7 @@ if __name__ == "__main__":
     from argparse import ArgumentParser
     from DiffieHellman import diffieHellman
     from encrypt import Encrypt
-
+    
     parser = ArgumentParser(description = 'CSC 376 Final Project : Interview Portal')
     parser.add_argument('host', type = str, help = 'Host Address of the Server')
     parser.add_argument('port', type = int, help = 'Port used to connect to Server')
@@ -72,15 +83,16 @@ if __name__ == "__main__":
     #_PORT = args.port
     _HOST = 'localhost'
     _PORT = 55555
-
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((_HOST, _PORT))
-    in_data = client_socket.recv(1024)
-    print(in_data.decode())
     key = key_exchange()
     enc = Encrypt(key)
+    in_data = client_socket.recv(1024)
+    in_data = enc.decrypt(in_data)
+    print(in_data)
     credentials()
-    loggedInAs = client_socket.recv(1024).decode()
+    loggedInAs = client_socket.recv(1024)
+    loggedInAs = enc.decrypt(loggedInAs)
     if (validate(loggedInAs)):
         if (loggedInAs == "Interviewee"): startinterview()
         elif (loggedInAs == "Lawyer"): createInterview()
