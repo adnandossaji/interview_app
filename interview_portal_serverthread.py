@@ -1,9 +1,19 @@
-import sys import threading import time import sqlite3 import
-db_interaction import user import interview from answer import * from
-question import * from active_interview import * import logging import
-logging.config logger = logging.getLogger(__name__) from interview_error
-import CredentialsException from encrypt import Encrypt from
-DiffieHellman import diffieHellman
+import sys 
+import threading 
+import time 
+import sqlite3 
+import	db_interaction 
+import user 
+import interview 
+from answer import * 
+from question import * 
+from active_interview import * 
+import logging 
+import logging.config
+logger = logging.getLogger(__name__) 
+from interview_error import CredentialsException 
+from encrypt import Encrypt 
+from DiffieHellman import diffieHellman
 
 
 
@@ -77,13 +87,16 @@ class ServerThread(threading.Thread):
 
     def showInterview(self):
     ### need to change code -KC ###
-        i = 1
-        interviewID = db_interaction.getInterview(self.currentuser.getIntID)
-        logger.info('User {} viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID())
+      #  i = 1
+	  
+    ### self.currentuser.getIntID won't work. need to ask user for interview ID then get it below -KC ###
+    ### i do get the interview ID in the client in showInterview() -KC ###
+        interviewID = db_interaction.getInterview(self.currentuser.getIntID())
+        logger.info('User {} viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID()))
         
         #show greeting to client
         greetingString = "You are now viewing a interview " + currentinterview.getInterviewName() + "\n"
-        seld.client_socket.send(greetingString.encode())
+        self.client_socket.send(greetingString.encode())
         
         #show interview questions and answers (if not null)
         currentQuestion = currentinterview.getNextQuestion()
@@ -106,7 +119,7 @@ class ServerThread(threading.Thread):
                 if tup[2] == response:
                     responseID = tup[1]
             currentQuestion = currentinterview.getNextQuestion()
-        self.client_socket.send("End of Interview".encode()
+        self.client_socket.send("End of Interview".encode())
         logger.info('User {} finished viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID()))
         
         return

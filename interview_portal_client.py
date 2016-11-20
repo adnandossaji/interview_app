@@ -68,8 +68,11 @@ def showInterview():
 	#ask/ get InterviewID to look up#
 	print('Please enter an interview ID: ')
 	sys.stdout.flush()	
+	### get interviewID here. need to send to the server -KC ###
 	interviewID_string = sys.stdin.readline()
 	interview_string = ''
+	
+	### recieves and prints out interview here -KC ###
 	
 	while (interview_string !="End of Interview"):#keyword could be swapped out for anything
             print(interview_string.decode())
@@ -84,6 +87,7 @@ def lawyer_options(option):
 	if (option.lower() == "create"):
 		createInterview()
 	elif (option.lower() == "view"):
+	### ask for interview ID then go to showInterview() -KC ###
 		showInterview()
 	else:
 		print('That was not a valid option. Please try again some other time.')

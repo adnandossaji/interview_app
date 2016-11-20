@@ -95,3 +95,13 @@
 2016-11-19 21:59:59,199 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=648, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 14762)>
 2016-11-19 22:00:04,209 - __main__ - INFO - New client connected : <socket.socket fd=696, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 14765)>
 2016-11-19 22:00:11,656 - interview_portal_serverthread - INFO - User adossaji has a login status of True
+2016-11-20 13:55:47,583 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-20 13:56:25,319 - __main__ - INFO - New client connected : <socket.socket fd=340, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18693)>
+2016-11-20 13:56:31,377 - interview_portal_serverthread - INFO - User kcardenas has a login status of True
+2016-11-20 13:56:31,378 - interview_portal_serverthread - INFO - User kcardenas started interview 1
+2016-11-20 13:56:36,416 - interview_portal_serverthread - INFO - User kcardenas completed interview 1
+2016-11-20 13:56:36,417 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=340, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18693)>
+2016-11-20 13:56:48,536 - __main__ - INFO - New client connected : <socket.socket fd=684, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18697)>
+2016-11-20 13:56:53,921 - interview_portal_serverthread - INFO - User adossaji has a login status of True
+2016-11-20 13:57:00,228 - __main__ - INFO - New client connected : <socket.socket fd=636, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18698)>
+2016-11-20 13:57:04,371 - interview_portal_serverthread - INFO - User adossaji has a login status of True
