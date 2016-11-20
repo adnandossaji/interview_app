@@ -34,6 +34,7 @@ Group Member		  Contribution
 5. Added init. lawyer interface (Work in progress)
 
 ##Arshad Khan
+1. Added startInterview for error handling in CredentialExceptions
 
 ##Brandon Meng
 
