@@ -56,6 +56,36 @@ def key_exchange():
     key = dif.genKey(other_key)
     return key
 
+def showInterview():
+### code to pulling interview and putting it on the screen -KC ###
+
+	## code stuff ##
+	## don't forget to encode! ##
+	
+	greeting = client_socket.recv(1024).decode()
+    if (len(greeting) != 0): print(greeting)
+	#ask/ get InterviewID to look up#
+	print('Please enter an interview ID: ')
+	sys.stdout.flush()	
+    interviewID_string = sys.stdin.readline()
+	interview_string = ''
+	
+    while (interview_string !="End of Interview"):#keyword could be swapped out for anything
+        print(interview_string.decode())
+        answer_string=str(input("Answer: "))
+        client_socket.send(answer_string.encode())
+        interview_string=client_socket.recv(1024)
+    print("End of Interview")
+	
+def lawyer_options(option):
+### created function to chose create or view an interview -KC ###
+	if (option.lower() == "create"):
+		createInterview()
+	elif (option.lower() == "view"):
+		showInterview()
+	else:
+		print('That was not a valid option. Please try again...')
+	
 if __name__ == "__main__":
     import sys
     import socket
@@ -83,5 +113,16 @@ if __name__ == "__main__":
     loggedInAs = client_socket.recv(1024).decode()
     if (validate(loggedInAs)):
         if (loggedInAs == "Interviewee"): startinterview()
-        elif (loggedInAs == "Lawyer"): createInterview()
+        elif (loggedInAs == "Lawyer"): # createInterview()
+		
+		### add viewInterview option here -KC ###
+			print('User', self._USER_NAME, ' please enter and option: create OR view:\n', end='') 
+			### recieves option chosen. sends to server ### 
+			sys.stdout.flush()
+			option_entered = sys.stdin.readline()
+			if not option_entered: print('Please try again')
+			
+			lawyer_options(option_entered)
+			
+			
     print("Logging Out...")

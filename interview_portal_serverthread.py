@@ -85,6 +85,42 @@ class ServerThread(threading.Thread):
         logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
         return
 
+	def showInterview(self):
+	### need to change code -KC ###
+		i = 1
+		interviewID = db_interaction.getInterview(self.currentuser.getIntID)
+		logger.info('User {} viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID())
+		
+		#show greeting to client
+		greetingString = "You are now viewing a interview " + currentinterview.getInterviewName() + "\n"
+		seld.client_socket.send(greetingString.encode())
+		
+		#show interview questions and answers (if not null)
+		currentQuestion = currentinterview.getNextQuestion()
+		while currentQuestion != "End of Interview":
+			answer = currentQuestion.getAnswers()
+			sendAnswer = []
+			firstLetter = 'A'
+			for a in answer:
+				sendAnswer.append((a.getAnswerText(),a.getAnswerID(),firstletter))
+				firstLetter = chr(ord(firstLetter) + 1)
+			messagestring = "\n" + currentQuestion.getQuestionText() + "\n"
+			
+			for tup in sendAnswer:
+				messagestring = messagestring + str(tup[2]) + ": " + str(tup[0]) + "\n"
+			response =  self.sendQuestion(messagestring,sendAnswer)
+			# look into this part #
+			responseID = ""
+			for tup in sendAnswer:
+				if tup[2] == response:
+					responseID = tup[1]
+			currentQuestion = currentinterview.getNextQuestion()
+		self.client_socket.send("End of Interview".encode()
+		logger.info('User {} finished viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID()))
+		
+		return
+			
+		
     def createInterview(self):
         greetingString="Welcome to the interview creator!\n"
         self.client_socket.send(greetingString.encode())
@@ -234,6 +270,18 @@ class ServerThread(threading.Thread):
         self.client_socket.send(('{}'.format(db_interaction.getUserRole(self.currentuser.getPer()))).encode())
 
         if (self.currentuser.getPer() == 4): self.giveInterview()
-        elif (self.currentuser.getPer() == 2): self.createInterview()
+        elif (self.currentuser.getPer() == 2): #self.createInterview()
+		###enter option to chose: createInterview or showInterview -KC ###
+			
+			#recv from client. save variable. decode it. #
+			option = self.client_socket.recv(1024).decode()
+			
+			if(option.lower() == "create"): self.createInterview()
+			elif(option.lower() == "view"): self.showInterview()
+		
+			print('User', self._USER_NAME, ' entered: ', option.uppercase(), 'mode')			
+			logger.info('User {} has entered {} mode'.format(self._USER_NAME, option.uppercase()))
+			
+			
 
         self.terminate_session()

@@ -52,6 +52,28 @@ def getInterview(InterviewID):
         conn.close()
         return res
 	
+def viewInterview(InterviewID):
+### change this -KC ###
+	conn = sqlite3.connect('interview.db')
+	conn.row_factory = sqlite3.Row
+	SELECT = "SELECT ii.InterviewName, ir.QuestionID, qi.QuestionText, qr.AnswerID, a.AnswerText "
+        FROM = "FROM InterviewInfo ii "
+        JOINS = "INNER JOIN InterviewRelation ir ON ii.InterviewID = ir.InterviewID INNER JOIN QuestionInfo qi ON ir.QuestionID = qi.QuestionID INNER JOIN QuestionRelation qr ON qi.QuestionID = qr.QuestionID INNER JOIN AnswerInfo a on qr.AnswerID = a.AnswerID "
+        rows = conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
+        InterviewName = rows[0]['InterviewName']
+        Questions = {}
+        
+        for row in rows:
+        	if row['QuestionID'] in Questions:
+        		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
+        	else :
+        		Questions[row['QuestionID']] = question.Question(row['QuestionID'],row['QuestionText'])
+        		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
+	
+        res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
+        conn.close()
+        return res
+	
 	# accept's a list of the Answer objects and inserts each into the database 
 def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
