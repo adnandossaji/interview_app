@@ -105,3 +105,26 @@
 2016-11-20 13:56:53,921 - interview_portal_serverthread - INFO - User adossaji has a login status of True
 2016-11-20 13:57:00,228 - __main__ - INFO - New client connected : <socket.socket fd=636, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18698)>
 2016-11-20 13:57:04,371 - interview_portal_serverthread - INFO - User adossaji has a login status of True
+2016-11-20 14:07:08,681 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-20 14:07:13,344 - __main__ - INFO - New client connected : <socket.socket fd=676, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18758)>
+2016-11-20 14:07:21,225 - interview_portal_serverthread - INFO - User adossaji has a login status of True
+2016-11-20 14:09:40,870 - __main__ - INFO - New client connected : <socket.socket fd=672, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18821)>
+2016-11-20 14:09:45,609 - interview_portal_serverthread - INFO - User adossaji has a login status of True
+2016-11-20 14:10:56,919 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-20 14:11:04,290 - __main__ - INFO - New client connected : <socket.socket fd=644, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18827)>
+2016-11-20 14:11:13,477 - interview_portal_serverthread - INFO - User adossaji has a login status of True
+2016-11-20 14:11:15,585 - interview_portal_serverthread - INFO - User adossaji has entered  mode
+2016-11-20 14:11:15,585 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=644, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18827)>
+2016-11-20 14:12:17,038 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-20 14:12:21,781 - __main__ - INFO - New client connected : <socket.socket fd=268, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18830)>
+2016-11-20 14:12:28,794 - interview_portal_serverthread - INFO - User adossaji has a login status of True
+2016-11-20 14:12:30,622 - interview_portal_serverthread - INFO - User adossaji has entered  mode
+2016-11-20 14:12:30,623 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=268, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18830)>
+2016-11-20 14:25:20,461 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-20 14:25:26,097 - __main__ - INFO - New client connected : <socket.socket fd=652, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18873)>
+2016-11-20 14:25:35,676 - interview_portal_serverthread - INFO - User kcardenas has a login status of True
+2016-11-20 14:25:35,677 - interview_portal_serverthread - INFO - User kcardenas started interview 1
+2016-11-20 14:25:40,660 - interview_portal_serverthread - INFO - User kcardenas completed interview 1
+2016-11-20 14:25:40,661 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=652, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18873)>
+2016-11-20 14:25:54,765 - __main__ - INFO - New client connected : <socket.socket fd=692, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 18884)>
+2016-11-20 14:26:02,555 - interview_portal_serverthread - INFO - User adossaji has a login status of True
