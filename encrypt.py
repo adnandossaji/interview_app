@@ -1,7 +1,17 @@
 import base64
 import hashlib
-from Crypto import Random
-from Crypto.Cipher import AES
+import pip
+
+try:
+    __import__('imp').find_module('Crypto')
+    from Crypto import Random
+    from Crypto.Cipher import AES
+except ImportError:
+    pip.main(['install', 'pycryptodome'])
+    from Crypto import Random
+    from Crypto.Cipher import AES
+    pass
+
 
 ####################################################
 #                    Tom Plutz                     #
@@ -15,6 +25,8 @@ from Crypto.Cipher import AES
 class Encrypt:
     def __init__(self,key):
         self.key = bytes(key,'utf-8')
+        
+        
 
     def encrypt(self,message,key_size=256):
         message = (str(message) + ("\0" * ((AES.block_size - len(message) % AES.block_size))))
