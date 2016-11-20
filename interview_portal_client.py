@@ -63,20 +63,22 @@ def showInterview():
 	## don't forget to encode! ##
 	
 	greeting = client_socket.recv(1024).decode()
-    if (len(greeting) != 0): print(greeting)
+	if (len(greeting) != 0): 
+		print(greeting) 
 	#ask/ get InterviewID to look up#
 	print('Please enter an interview ID: ')
 	sys.stdout.flush()	
-    interviewID_string = sys.stdin.readline()
+	interviewID_string = sys.stdin.readline()
 	interview_string = ''
 	
-    while (interview_string !="End of Interview"):#keyword could be swapped out for anything
-        print(interview_string.decode())
-        answer_string=str(input("Answer: "))
-        client_socket.send(answer_string.encode())
-        interview_string=client_socket.recv(1024)
-    print("End of Interview")
-	
+	while (interview_string !="End of Interview"):#keyword could be swapped out for anything
+            print(interview_string.decode())
+            answer_string=str(input("Answer: "))
+            client_socket.send(answer_string.encode())
+            interview_string=client_socket.recv(1024)
+            print('End of Interview')
+
+###this function works###        
 def lawyer_options(option):
 ### created function to chose create or view an interview -KC ###
 	if (option.lower() == "create"):
@@ -84,7 +86,7 @@ def lawyer_options(option):
 	elif (option.lower() == "view"):
 		showInterview()
 	else:
-		print('That was not a valid option. Please try again...')
+		print('That was not a valid option. Please try again some other time.')
 	
 if __name__ == "__main__":
     import sys
@@ -114,15 +116,17 @@ if __name__ == "__main__":
     if (validate(loggedInAs)):
         if (loggedInAs == "Interviewee"): startinterview()
         elif (loggedInAs == "Lawyer"): # createInterview()
-		
-		### add viewInterview option here -KC ###
-			print('User', self._USER_NAME, ' please enter and option: create OR view:\n', end='') 
-			### recieves option chosen. sends to server ### 
-			sys.stdout.flush()
-			option_entered = sys.stdin.readline()
-			if not option_entered: print('Please try again')
-			
-			lawyer_options(option_entered)
-			
+        
+        ### add viewInterview option here -KC ###
+            ###this part works ###
+                print(loggedInAs, ' please enter and option: create OR view:\n', end='') 
+                ### recieves option chosen. sends to server ### 
+                sys.stdout.flush()
+                option_entered = sys.stdin.readline()
+                ### next line not needed ###
+              #  if (option_entered != ''): print('Please try again')
+                
+                lawyer_options(option_entered)
+                
 			
     print("Logging Out...")

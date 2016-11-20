@@ -1,19 +1,9 @@
-import sys
-import threading
-import time
-import sqlite3
-import db_interaction
-import user
-import interview
-from answer import *
-from question import *
-from active_interview import *
-import logging
-import logging.config
-logger = logging.getLogger(__name__)
-from interview_error import CredentialsException
-from encrypt import Encrypt
-from DiffieHellman import diffieHellman
+import sys import threading import time import sqlite3 import
+db_interaction import user import interview from answer import * from
+question import * from active_interview import * import logging import
+logging.config logger = logging.getLogger(__name__) from interview_error
+import CredentialsException from encrypt import Encrypt from
+DiffieHellman import diffieHellman
 
 
 
@@ -85,42 +75,43 @@ class ServerThread(threading.Thread):
         logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
         return
 
-	def showInterview(self):
-	### need to change code -KC ###
-		i = 1
-		interviewID = db_interaction.getInterview(self.currentuser.getIntID)
-		logger.info('User {} viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID())
-		
-		#show greeting to client
-		greetingString = "You are now viewing a interview " + currentinterview.getInterviewName() + "\n"
-		seld.client_socket.send(greetingString.encode())
-		
-		#show interview questions and answers (if not null)
-		currentQuestion = currentinterview.getNextQuestion()
-		while currentQuestion != "End of Interview":
-			answer = currentQuestion.getAnswers()
-			sendAnswer = []
-			firstLetter = 'A'
-			for a in answer:
-				sendAnswer.append((a.getAnswerText(),a.getAnswerID(),firstletter))
-				firstLetter = chr(ord(firstLetter) + 1)
-			messagestring = "\n" + currentQuestion.getQuestionText() + "\n"
-			
-			for tup in sendAnswer:
-				messagestring = messagestring + str(tup[2]) + ": " + str(tup[0]) + "\n"
-			response =  self.sendQuestion(messagestring,sendAnswer)
-			# look into this part #
-			responseID = ""
-			for tup in sendAnswer:
-				if tup[2] == response:
-					responseID = tup[1]
-			currentQuestion = currentinterview.getNextQuestion()
-		self.client_socket.send("End of Interview".encode()
-		logger.info('User {} finished viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID()))
-		
-		return
-			
-		
+    def showInterview(self):
+    ### need to change code -KC ###
+        i = 1
+        interviewID = db_interaction.getInterview(self.currentuser.getIntID)
+        logger.info('User {} viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID())
+        
+        #show greeting to client
+        greetingString = "You are now viewing a interview " + currentinterview.getInterviewName() + "\n"
+        seld.client_socket.send(greetingString.encode())
+        
+        #show interview questions and answers (if not null)
+        currentQuestion = currentinterview.getNextQuestion()
+        while currentQuestion != "End of Interview":
+            answer = currentQuestion.getAnswers()
+            sendAnswer = []
+            firstLetter = 'A'
+            for a in answer:
+			### this is where its breaking ###
+                sendAnswer.append((a.getAnswerText(),a.getAnswerID(),firstletter))
+                firstLetter = chr(ord(firstLetter) + 1)
+            messagestring = "\n" + currentQuestion.getQuestionText() + "\n"
+            
+            for tup in sendAnswer:
+                messagestring = messagestring + str(tup[2]) + ": " + str(tup[0]) + "\n"
+            response =  self.sendQuestion(messagestring,sendAnswer)
+            # look into this part #
+            responseID = ""
+            for tup in sendAnswer:
+                if tup[2] == response:
+                    responseID = tup[1]
+            currentQuestion = currentinterview.getNextQuestion()
+        self.client_socket.send("End of Interview".encode()
+        logger.info('User {} finished viewing interview {}'.format(self.currentuser.getName(),self.currentuser.getIntID()))
+        
+        return
+            
+        
     def createInterview(self):
         greetingString="Welcome to the interview creator!\n"
         self.client_socket.send(greetingString.encode())
@@ -271,17 +262,17 @@ class ServerThread(threading.Thread):
 
         if (self.currentuser.getPer() == 4): self.giveInterview()
         elif (self.currentuser.getPer() == 2): #self.createInterview()
-		###enter option to chose: createInterview or showInterview -KC ###
-			
-			#recv from client. save variable. decode it. #
-			option = self.client_socket.recv(1024).decode()
-			
-			if(option.lower() == "create"): self.createInterview()
-			elif(option.lower() == "view"): self.showInterview()
-		
-			print('User', self._USER_NAME, ' entered: ', option.uppercase(), 'mode')			
-			logger.info('User {} has entered {} mode'.format(self._USER_NAME, option.uppercase()))
-			
-			
+        ###enter option to chose: createInterview or showInterview -KC ###
+            
+            #recv from client. save variable. decode it. #
+            option = self.client_socket.recv(1024).decode()
+            
+            if(option.lower() == "create"): self.createInterview()
+            elif(option.lower() == "view"): self.showInterview()
+        
+            print('User', self._USER_NAME, ' entered: ', option.uppercase(), 'mode')            
+            logger.info('User {} has entered {} mode'.format(self._USER_NAME, option.uppercase()))
+            
+            
 
         self.terminate_session()

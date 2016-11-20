@@ -1,13 +1,7 @@
-if __name__ == "__main__":
-    import sys
-    import socket
-    import time
-    from argparse import ArgumentParser
-    from interview_portal_serverthread import ServerThread
-    import sqlite3
-    import db_interaction
-    import logging
-    import logging.config
+if __name__ == "__main__": import sys import socket import time from
+    argparse import ArgumentParser from interview_portal_serverthread
+    import ServerThread import sqlite3 import db_interaction import
+    logging import logging.config
 
     logging.config.fileConfig('logging.ini', disable_existing_loggers=False)
     logger = logging.getLogger(__name__)

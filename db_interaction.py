@@ -1,10 +1,6 @@
-import sqlite3
-import user
-import answer
-import question
-import interview
-import active_interview
-from interview_error import CredentialsException
+import sqlite3 import user import answer import question import
+interview import active_interview from interview_error import
+CredentialsException
 
 
 def getUser( username, password):
