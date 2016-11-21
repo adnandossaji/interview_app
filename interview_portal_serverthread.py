@@ -229,7 +229,7 @@ class ServerThread(threading.Thread):
         response = self.client_socket.recv(1024)
         response = enc.decrypt(response)
 
-        print(response.rstrip().lower().encode())
+        #print(response.rstrip().lower().encode())
         if(response.rstrip().lower().encode() == 'c'.encode()):
             self.createInterview()
         elif(response.rstrip().lower().encode() == 'v'.encode()):
@@ -238,6 +238,7 @@ class ServerThread(threading.Thread):
             id_given = self.client_socket.recv(1024)
             id_given = enc.decrypt(id_given)
             id_given = id_given.rstrip()
+            print(id_given.encode())
             self.viewInterview(interviewID = id_given)
         
     def validate(self):

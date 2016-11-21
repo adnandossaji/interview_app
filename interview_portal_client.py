@@ -135,6 +135,10 @@ def lawyerOptions():
         id_entered = str(sys.stdin.readline())
         id_entered = id_entered.rstrip()
         #send id to server#
+        print(id_entered.encode())
+
+        id_entered = enc.encrypt(id_entered)
+        client_socket.send(id_entered)
         
         showInterview()
     else: print('please enter "create" or "view" next time')
