@@ -30,6 +30,52 @@ class ServerThread(threading.Thread):
     ##Helper function for giveInterview. Handles all##
     ##looping needed to assure a correct response   ##
     ##################################################
+    
+    def adminMenu(self):
+        global enc
+        greeting = ("Welcome to the Interview Portal")
+        greeting = enc.encrypt(greeting)
+        self.client_socket.send(greeting)
+        message = ("Please select a function :")
+        message = enc.encrypt(message)
+        self.client_socket.send(message)
+        option1 = ("    1. Create an Interview")
+        option1 = enc.encrypt(option1)
+        self.client_socket.send(option1)
+        option2 = ("    2. Review an Interview")
+        option2 = enc.encrypt(option2)
+        self.client_socket.send(option2)
+
+        response = self.client_socket.recv(1024)
+        response = enc.decrypt(response)
+        response = response.rstrip()
+
+        status = True
+        while status:
+            if response == '1':
+                echo = enc.encrypt(response)
+                self.client_socket.send(echo)
+                status = False
+                self.createInterview()
+
+            elif response == '2':
+                echo = enc.encrypt(response)
+                self.client_socket.send(echo)
+                status = False
+                self.reviewInterview()
+            else:
+                error = "Invalid option, try again"
+                error = enc.encrypt(error)
+                self.client_socket.send(error)
+                response = self.client_socket.recv(1024)
+                response = enc.decrypt(response)
+                response = response.rstrip()
+
+        return
+
+    def reviewInterview(self):
+        print("REVIEW!")
+    
     def sendQuestion(self,messagestring,sendAnswers):
         global enc
         correct=False
