@@ -234,12 +234,11 @@ class ServerThread(threading.Thread):
             self.createInterview()
         elif(response.rstrip().lower().encode() == 'v'.encode()):
             #wait for interview ID
-            print('waiting fro interview id')
-            self.viewInterview(interviewID)
-            
-
-        
-        
+            print('...waiting for interview id')
+            id_given = self.client_socket.recv(1024)
+            id_given = enc.decrypt(id_given)
+            id_given = id_given.rstrip()
+            self.viewInterview(interviewID = id_given)
         
     def validate(self):
         global enc

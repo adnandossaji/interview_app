@@ -410,3 +410,6 @@
 2016-11-21 02:07:20,484 - __main__ - INFO - New client connected : <socket.socket fd=248, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 24872)>
 2016-11-21 02:07:26,484 - interview_portal_serverthread - INFO - User adossaji has a login status of True
 2016-11-21 02:07:27,907 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=248, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 24872)>
+2016-11-21 02:16:33,566 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-21 02:16:53,545 - __main__ - INFO - New client connected : <socket.socket fd=376, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 24931)>
+2016-11-21 02:16:59,890 - interview_portal_serverthread - INFO - User adossaji has a login status of True

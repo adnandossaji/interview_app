@@ -129,6 +129,13 @@ def lawyerOptions():
         v = 'v'
         v = enc.encrypt(v)
         client_socket.send(v)
+        
+        print('enter an interview id to search for...')
+        sys.stdout.flush()
+        id_entered = str(sys.stdin.readline())
+        id_entered = id_entered.rstrip()
+        #send id to server#
+        
         showInterview()
     else: print('please enter "create" or "view" next time')
         
