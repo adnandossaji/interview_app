@@ -85,7 +85,7 @@ def getUserInterviewID(userName):
         select = "SELECT InterviewID "
         table = "FROM UserInformation "
 
-        row = conn.execute(select + table + "WHERE UserName = ?",(str(userName))).fetchone()
+        row = conn.execute(select + table + "WHERE UserName = ?",(userName,)).fetchone()
 
         return row['InterviewID']
 
@@ -96,8 +96,11 @@ def checkIntAssigned(InterviewID):
         table = "FROM UserInformation "
 
         row = conn.execute(select + table + "WHERE InterviewID = ?",(str(InterviewID))).fetchone()
-
-        return row['UserName']
+        
+        if (row == None):
+                return None
+        else:
+                return row['UserName']
 	
 	
 def assignUser(InterviewID, UserName):
