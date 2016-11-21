@@ -96,10 +96,13 @@ def checkIntAssigned(InterviewID):
         table = "FROM UserInformation "
 
         row = conn.execute(select + table + "WHERE InterviewID = ?",(str(InterviewID))).fetchone()
-
-        return row['UserName']
-
-
+        
+        if (row == None):
+                return None
+        else:
+                return row['UserName']
+	
+	
 def assignUser(InterviewID, UserName):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row

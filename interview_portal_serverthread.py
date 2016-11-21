@@ -283,7 +283,7 @@ class ServerThread(threading.Thread):
 
 
         userAssigned = db_interaction.checkIntAssigned(interviewID)
-        if(userAssigned != None):
+        if(userAssigned == None):
             msg= 'Enter a user to assign to :'
             msg = enc.encrypt(msg)
             self.client_socket.send(msg)
