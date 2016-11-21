@@ -78,6 +78,7 @@ class ServerThread(threading.Thread):
                 error = "Invalid option, try again"
                 error = enc.encrypt(error)
                 self.client_socket.send(error)
+                time.sleep(0.05)
                 response = self.client_socket.recv(1024)
                 response = enc.decrypt(response)
                 response = response.rstrip()
@@ -156,11 +157,12 @@ class ServerThread(threading.Thread):
         greetingString="Welcome to the interview creator!"
         greetingString = enc.encrypt(greetingString)
         self.client_socket.send(greetingString)
-
+        time.sleep(0.05)
         askQuestionString="What is the name of this interview?"
         askQuestionString = enc.encrypt(askQuestionString)
         self.client_socket.send(askQuestionString)
-
+        time.sleep(0.05)
+        
         name = self.client_socket.recv(1024)
         name = enc.decrypt(name)
 
@@ -279,9 +281,11 @@ class ServerThread(threading.Thread):
         greetingString="Welcome to the interview assigner!"
         greetingString = enc.encrypt(greetingString)
         self.client_socket.send(greetingString)
+        time.sleep(0.05)
         msg= 'Enter a interview number to assign :'
         msg = enc.encrypt(msg)
         self.client_socket.send(msg)
+        time.sleep(0.05)
         interviewID = self.client_socket.recv(1024)
         interviewID = enc.decrypt(interviewID)
         interviewID = interviewID.rstrip()
@@ -349,7 +353,7 @@ class ServerThread(threading.Thread):
         if self.currentuser!= None:
             return True
         return False
-        time.sleep(0.1)
+        time.sleep(0.05)
 
     def terminate_session(self):
         global enc
