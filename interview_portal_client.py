@@ -62,37 +62,75 @@ def createInterview():
         print(interview_string)
         
 def showInterview():
-    ### code stuff
+    ### code stuff###
+    ###thisi funciton will take the interview ID ###
     print('you got to view the interview')
+    ### recieve greeting
+    greeting = client_socket.recv(1024)
+    greeting = enc.decrypt(greeting)
+    #if (len(greeting) != 0): print(greeting)
+    print(greeting)
+
+    ###ask for interview ID
+    print('please enter an Interview ID: ')
+    sys.stdout.flush()
+    int_id = str(sys.stdin.readline())
+    int_id = enc.encrypt(int_id.rstrip())
+    client_socket.send(int_id)
+    print('fetching interview... \nPlease wait...')
+    #got here#
+
+    ### recieves interview
+    fetched_int = client_socket.recv(1024)
+    fetched_int = enc.decrypt(fetched_int)
+
+    print(fetched_int)
+    ### prints interivew
+##    while (fetched_int !="End of Interview"):#keyword could be swapped out for anything
+##        print(fetched_int)
+##        
+##        answer_string=str(input("Answer: "))
+##        answer_string = enc.encrypt(answer_string)
+##        client_socket.send(answer_string)
+##
+##        fetched_int = client_socket.recv(1024)
+##        fetched_int = enc.decrypt(fetched_int)
+
+    print("End of Interview")
     
 def lawyerOptions():
+    greeting = client_socket.recv(1024)
+    greeting = enc.decrypt(greeting)
+    #if (len(greeting) != 0): print(greeting)
+    print(greeting)
     view = "view"
     create = "create"
+    #print(loggedInAs)
+    #put recv stmt here
+##    chose_option_here = client_socket.recv(1024)
+##    chose_option_here = enc.decrypt(chose_option_here)
+##    print(chose_option_here)
+##
+##    sys.stdout.flush()
+##    option_entered = str(sys.stdin.readline).rstrip().lower()
+##    #print(option_entered.encode())
+##    
     print(loggedInAs, ' please enter an option: create OR view \n')
     sys.stdout.flush()
-    option_entered = str(sys.stdin.readline())    
-    if(str(option_entered).rstrip().lower().encode() == str(create).encode()): createInterview()
+    option_entered = str(sys.stdin.readline())
+    
+    if(str(option_entered).rstrip().lower().encode() == str(create).encode()):
+        c = 'c'
+        c = enc.encrypt(c)
+        client_socket.send(c)
+        createInterview()
+        #works        
     elif(str(option_entered).rstrip().lower().encode() == str(view).encode()):
-##        print(str(option_entered) is str(view))
-##        print(str(option_entered).upper())
-##        print(str(view).upper())
-##        print(str(option_entered).upper() == str(view).upper())
-##        print(str(option_entered).rstrip().encode())
-##        print(str(view).encode())
-##        print(str(option_entered).rstrip().encode() == str(view).encode())
-##        print(type(option_entered))
+        v = 'v'
+        v = enc.encrypt(v)
+        client_socket.send(v)
         showInterview()
-    else: print('please try again later')
-   
-##    print(type(option))
-##    print(type("view"))
-##    if (option.lower() == "create"):
-##        print(option)
-##        return 1
-##    elif (option == "view"):
-##        return 2
-##    else:
-##        print('that was not a valid answer')
+    else: print('please enter "create" or "view" next time')
         
 def key_exchange():
     dif = diffieHellman()
@@ -131,18 +169,5 @@ if __name__ == "__main__":
     if (validate(loggedInAs)):
         if (loggedInAs == "Interviewee"): startinterview()
         elif (loggedInAs == "Lawyer"): lawyerOptions() #createInterview()
-            ###code is here -KC ###
-##            print(loggedInAs, ' please enter an option: create OR view \n')
-##            sys.stdout.flush()
-##            option_entered = str(sys.stdin.readline())
-##            #print(type(option_entered))
-##            
-##            if(option_entered.lower() == "create"): print(type(option_entered),option_entered)
-##            elif(option_entered.lower() == "view"): showInteriview()
-##            else: print('please try again later')
-            
-##            answer = lawyerOptions(option = option_entered)
-##            if(answer == 1 ): createInterview()
-##            elif(answer == 2): showInterview()
             
     print("Logging Out...")

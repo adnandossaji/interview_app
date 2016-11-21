@@ -26,6 +26,7 @@ class ServerThread(threading.Thread):
         self._USER_NAME = ''
         self._USER_PW = ''
         self.currentuser=None
+        
     ##################################################
     ##Helper function for giveInterview. Handles all##
     ##looping needed to assure a correct response   ##
@@ -184,7 +185,62 @@ class ServerThread(threading.Thread):
         self.client_socket.send(enc.encrypt(msg))
 
 
+    def viewInterview(interviewID):
+        global enc
+        greetingString="Welcome you are currently in viewing mode!\n"
+        greetingString = enc.encrypt(greetingString)
+        self.client_socket.send(greetingString)
+        chosen_interview = db_interaction.getInterview(interviewID)
+        logger.info('User {} is now viewing {}'.format(self.currentuser.getName(), interviewID))
 
+        current_question = chosen_interview.getNextQuestion()
+        while (current_question != "End of Interview"):
+            answers=currentQuestion.getAnswers()
+            sendAnswers=[]
+            firstletter='A'
+            for a in answers:
+                sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
+                firstletter=chr(ord(firstletter)+1)
+            messagestring="\n"+currentQuestion.getQuestionText()+"\n"
+            for tup in sendAnswers:
+                messagestring=messagestring+str(tup[2])+": "+str(tup[0])+"\n"
+            response=self.sendQuestion(messagestring,sendAnswers)
+            responseID=""
+            for tup in sendAnswers:
+                if tup[2]==response:
+                    responseID=tup[1]
+            #currentinterview.answerQuestion(responseID)
+            currentQuestion=currentinterview.getNextQuestion()
+        self.client_socket.send(enc.encrypt("End of Interview"))
+        logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
+        return
+
+                
+    def lawyerOption(self):
+        global enc
+        greetingString='Welcome you are signed in as a Lawyer!\n'
+        greetingString = enc.encrypt(greetingString)
+        self.client_socket.send(greetingString)
+
+##        chose_option = 'Please enter an option create OR view'
+##        chose_option = enc.encrypt(chose_option)
+##        self.client_socket.send(chose_option)
+
+        response = self.client_socket.recv(1024)
+        response = enc.decrypt(response)
+
+        print(response.rstrip().lower().encode())
+        if(response.rstrip().lower().encode() == 'c'.encode()):
+            self.createInterview()
+        elif(response.rstrip().lower().encode() == 'v'.encode()):
+            #wait for interview ID
+            print('waiting fro interview id')
+            self.viewInterview(interviewID)
+            
+
+        
+        
+        
     def validate(self):
         global enc
         time.sleep(0.1)
@@ -247,11 +303,10 @@ class ServerThread(threading.Thread):
             CredentialsException()
             self.terminate_session()
             return
-        ##This assumes that the user is trying to take an interview. Additional##
-        ##user options could be added easily by making the giveInterview call  ##
-        ##conditional
         self.client_socket.send(enc.encrypt(str('{}'.format(db_interaction.getUserRole(self.currentuser.getPer())))))
         if (self.currentuser.getPer() == 4): self.giveInterview()
-        elif (self.currentuser.getPer() == 2): self.createInterview()
+        elif (self.currentuser.getPer() == 2):
+            self.lawyerOption()
+            #self.createInterview()
 
         self.terminate_session()
