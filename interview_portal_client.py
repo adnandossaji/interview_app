@@ -49,8 +49,12 @@ def createInterview():
     greeting = client_socket.recv(1024)
     greeting = enc.decrypt(greeting)
     if (len(greeting) != 0): print(greeting)
-    interview_string=''
-
+    sys.stdout.flush()
+    interview_string = client_socket.recv(1024)
+    interview_string = enc.decrypt(interview_string)
+    if (len(greeting) != 0): print(interview_string)
+    sys.stdout.flush()
+    
     while (interview_string!="End of Interview"):
         answer_string=str(input("CLIENT > "))
         answer_string = enc.encrypt(answer_string)
