@@ -1,4 +1,6 @@
 from interview_error import CredentialsException
+import sys
+import string
 
 def terminate_session():
     print('Terminating connection to server')
@@ -59,6 +61,39 @@ def createInterview():
         interview_string = enc.decrypt(interview_string)
         print(interview_string)
         
+def showInterview():
+    ### code stuff
+    print('you got to view the interview')
+    
+def lawyerOptions():
+    view = "view"
+    create = "create"
+    print(loggedInAs, ' please enter an option: create OR view \n')
+    sys.stdout.flush()
+    option_entered = str(sys.stdin.readline())    
+    if(str(option_entered).rstrip().lower().encode() == str(create).encode()): createInterview()
+    elif(str(option_entered).rstrip().lower().encode() == str(view).encode()):
+##        print(str(option_entered) is str(view))
+##        print(str(option_entered).upper())
+##        print(str(view).upper())
+##        print(str(option_entered).upper() == str(view).upper())
+##        print(str(option_entered).rstrip().encode())
+##        print(str(view).encode())
+##        print(str(option_entered).rstrip().encode() == str(view).encode())
+##        print(type(option_entered))
+        showInterview()
+    else: print('please try again later')
+   
+##    print(type(option))
+##    print(type("view"))
+##    if (option.lower() == "create"):
+##        print(option)
+##        return 1
+##    elif (option == "view"):
+##        return 2
+##    else:
+##        print('that was not a valid answer')
+        
 def key_exchange():
     dif = diffieHellman()
     client_socket.send(str(dif.publicKey).encode())
@@ -95,5 +130,19 @@ if __name__ == "__main__":
     loggedInAs = enc.decrypt(loggedInAs)
     if (validate(loggedInAs)):
         if (loggedInAs == "Interviewee"): startinterview()
-        elif (loggedInAs == "Lawyer"): createInterview()
+        elif (loggedInAs == "Lawyer"): lawyerOptions() #createInterview()
+            ###code is here -KC ###
+##            print(loggedInAs, ' please enter an option: create OR view \n')
+##            sys.stdout.flush()
+##            option_entered = str(sys.stdin.readline())
+##            #print(type(option_entered))
+##            
+##            if(option_entered.lower() == "create"): print(type(option_entered),option_entered)
+##            elif(option_entered.lower() == "view"): showInteriview()
+##            else: print('please try again later')
+            
+##            answer = lawyerOptions(option = option_entered)
+##            if(answer == 1 ): createInterview()
+##            elif(answer == 2): showInterview()
+            
     print("Logging Out...")
