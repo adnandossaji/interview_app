@@ -37,7 +37,10 @@ Group Member		  Contribution
 1. Added startInterview for error handling in CredentialExceptions
 
 ##Brandon Meng
-
+1. Created interview taking procedures on client
+2. Created interview administration on server
+3. Implemented answer saving
+4. Various debugging issues
 ##Cody Castino
 
 ##James King
@@ -59,7 +62,6 @@ Group Member		  Contribution
 
 ##Matthew Current
 1. allowed to assign multiple interverviews at once
-
 ##Tom Plutz
 1. Wrote the encryption class.
 2. Wrote a Diffie Hellmann KeyExchange class for the server and client to use.
