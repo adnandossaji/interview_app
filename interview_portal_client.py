@@ -16,6 +16,8 @@ def adminMenu():
         message = enc.decrypt(message)
         if (len(message) != 0): print(message)
         sys.stdout.flush()
+        message = ''
+
     answer_string = str(input(" > "))
     answer_string = enc.encrypt(answer_string)
     client_socket.send(answer_string)
@@ -40,6 +42,7 @@ def adminMenu():
 
 def reviewInterview():
     print("REVIEW!")
+
 
 
 
