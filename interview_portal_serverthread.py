@@ -315,6 +315,8 @@ class ServerThread(threading.Thread):
                         db_interaction.assignUser(interviewID, assignTo)
                         assigning = False
                     elif checker == 'N':
+                        msg = "End of assigning process"
+                        self.client_socket.send(enc.encrypt(msg))
                         assigning = False
                         break
                     else:
@@ -323,8 +325,25 @@ class ServerThread(threading.Thread):
         else:
             msg= ('This interview is already assigned to  user {}'.format(userAssigned))
             self.client_socket.send(enc.encrypt(msg))
+        msg = "Want to assign another interview (Y/N)?"
+        self.client_socket.send(enc.encrypt(msg))
 
-
+        checker = self.client_socket.recv(1024)
+        checker = enc.decrypt(checker)
+        checker = checker.rstrip()
+        checker = checker.upper()
+        assigning = True
+        while (assigning):
+            if checker == 'Y':
+                db_interaction.assignInterview()
+                assigning = False
+            elif checker == 'N':
+                msg = "End of assigning process"
+                self.client_socket.send(enc.encrypt(msg))
+                assigning = False
+            else:
+                msg="Invalid Response!"
+                self.client_socket.send(enc.encrypt(msg))
 
         msg = "End of assigning process"
         self.client_socket.send(enc.encrypt(msg))
