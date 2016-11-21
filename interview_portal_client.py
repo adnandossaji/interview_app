@@ -114,12 +114,18 @@ def assignInterview():
     sys.stdout.flush()
     
     while (interview_string!="End of assigning process"):
-        answer_string=str(input("CLIENT > "))
-        answer_string = enc.encrypt(answer_string)
-        client_socket.send(answer_string)
-        interview_string = client_socket.recv(1024)
-        interview_string = enc.decrypt(interview_string)
-        print(interview_string)
+        if(interview_string == "Welcome to the interview assigner!"):
+            interview_string = client_socket.recv(1024)
+            interview_string = enc.decrypt(interview_string)
+            if (len(greeting) != 0): print(interview_string)
+            sys.stdout.flush()
+        else:    
+            answer_string=str(input("CLIENT > "))
+            answer_string = enc.encrypt(answer_string)
+            client_socket.send(answer_string)
+            interview_string = client_socket.recv(1024)
+            interview_string = enc.decrypt(interview_string)
+            print(interview_string)
         
 def key_exchange():
     dif = diffieHellman()

@@ -310,6 +310,7 @@ class ServerThread(threading.Thread):
                 checker = enc.decrypt(checker)
                 checker = checker.rstrip()
                 checker = checker.upper()
+                assigning = True
                 while (assigning):
                     if checker == 'Y':
                         db_interaction.assignUser(interviewID, assignTo)
@@ -323,27 +324,24 @@ class ServerThread(threading.Thread):
                         msg="Invalid Response!"
                         self.client_socket.send(enc.encrypt(msg))
         else:
-            msg= ('This interview is already assigned to  user {}'.format(userAssigned))
+            msg= ('This interview is already assigned to  user {}. Would you like to assign a different interview (Y/N)?'.format(userAssigned))
             self.client_socket.send(enc.encrypt(msg))
-        msg = "Want to assign another interview (Y/N)?"
-        self.client_socket.send(enc.encrypt(msg))
-
-        checker = self.client_socket.recv(1024)
-        checker = enc.decrypt(checker)
-        checker = checker.rstrip()
-        checker = checker.upper()
-        assigning = True
-        while (assigning):
-            if checker == 'Y':
-                db_interaction.assignInterview()
-                assigning = False
-            elif checker == 'N':
-                msg = "End of assigning process"
-                self.client_socket.send(enc.encrypt(msg))
-                assigning = False
-            else:
-                msg="Invalid Response!"
-                self.client_socket.send(enc.encrypt(msg))
+            checker = self.client_socket.recv(1024)
+            checker = enc.decrypt(checker)
+            checker = checker.rstrip()
+            checker = checker.upper()
+            assigning = True
+            while (assigning):
+                if checker == 'Y':
+                    self.assignInterview()
+                    assigning = False
+                elif checker == 'N':
+                    msg = "End of assigning process"
+                    self.client_socket.send(enc.encrypt(msg))
+                    assigning = False
+                else:
+                    msg="Invalid Response!"
+                    self.client_socket.send(enc.encrypt(msg))
 
         msg = "End of assigning process"
         self.client_socket.send(enc.encrypt(msg))
