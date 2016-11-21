@@ -53,9 +53,9 @@ Group Member		  Contribution
 
 ##Keaton Zonca
 1. added code to assign a interview to a user when creating a new interview
-2. assignUser in db_interaction
-3. added logging to server and serverThread
-4. logging.ini
+2. assign interview from adminMenu
+2. assignUser, checkIntAssigned, and  etUserInterviewID in db_interaction
+3. added logging to server and serverThread and created logging.ini
 
 ##Khalid Alrawaf
 1. def validate()
