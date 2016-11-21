@@ -47,8 +47,10 @@ Group Member		  Contribution
 ##Karen Cardenas
 
 ##Keaton Zonca
-1. added logging to server and serverThread
-2. logging.ini
+1. added code to assign a interview to a user when creating a new interview
+2. assignUser in db_interaction
+3. added logging to server and serverThread
+4. logging.ini
 
 ##Khalid Alrawaf
 1. def validate()
