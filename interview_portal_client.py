@@ -64,7 +64,7 @@ def createInterview():
 def showInterview():
     ### code stuff###
     ###thisi funciton will take the interview ID ###
-    print('you got to view the interview')
+    print('YAY! you an awesome option')
     ### recieve greeting
     greeting = client_socket.recv(1024)
     greeting = enc.decrypt(greeting)
@@ -72,13 +72,14 @@ def showInterview():
     print(greeting)
 
     ###ask for interview ID
-    print('please enter an Interview ID: ')
-    sys.stdout.flush()
-    int_id = str(sys.stdin.readline())
-    int_id = enc.encrypt(int_id.rstrip())
-    client_socket.send(int_id)
+    ### id is algready requested ###
+##    print('please enter an Interview ID: ')
+##    sys.stdout.flush()
+##    int_id = str(sys.stdin.readline())
+##    int_id = enc.encrypt(int_id.rstrip())
+##    client_socket.send(int_id)
+    
     print('fetching interview... \nPlease wait...')
-    #got here#
 
     ### recieves interview
     fetched_int = client_socket.recv(1024)
@@ -105,16 +106,7 @@ def lawyerOptions():
     print(greeting)
     view = "view"
     create = "create"
-    #print(loggedInAs)
-    #put recv stmt here
-##    chose_option_here = client_socket.recv(1024)
-##    chose_option_here = enc.decrypt(chose_option_here)
-##    print(chose_option_here)
-##
-##    sys.stdout.flush()
-##    option_entered = str(sys.stdin.readline).rstrip().lower()
-##    #print(option_entered.encode())
-##    
+    
     print(loggedInAs, ' please enter an option: create OR view \n')
     sys.stdout.flush()
     option_entered = str(sys.stdin.readline())

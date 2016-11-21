@@ -185,7 +185,8 @@ class ServerThread(threading.Thread):
         self.client_socket.send(enc.encrypt(msg))
 
 
-    def viewInterview(interviewID):
+    def viewInterview(self,interviewID):
+        ###make the actual db call here###
         global enc
         greetingString="Welcome you are currently in viewing mode!\n"
         greetingString = enc.encrypt(greetingString)
@@ -193,25 +194,33 @@ class ServerThread(threading.Thread):
         chosen_interview = db_interaction.getInterview(interviewID)
         logger.info('User {} is now viewing {}'.format(self.currentuser.getName(), interviewID))
 
-        current_question = chosen_interview.getNextQuestion()
-        while (current_question != "End of Interview"):
-            answers=currentQuestion.getAnswers()
-            sendAnswers=[]
-            firstletter='A'
-            for a in answers:
-                sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
-                firstletter=chr(ord(firstletter)+1)
-            messagestring="\n"+currentQuestion.getQuestionText()+"\n"
-            for tup in sendAnswers:
-                messagestring=messagestring+str(tup[2])+": "+str(tup[0])+"\n"
-            response=self.sendQuestion(messagestring,sendAnswers)
-            responseID=""
-            for tup in sendAnswers:
-                if tup[2]==response:
-                    responseID=tup[1]
-            #currentinterview.answerQuestion(responseID)
-            currentQuestion=currentinterview.getNextQuestion()
-        self.client_socket.send(enc.encrypt("End of Interview"))
+       # print(chosen_interview)
+        ###this prints out interview with no answers attached###
+
+        print(type(chosen_interview))
+
+        for l in chosen_interview:
+            print(l)
+
+##        current_question = chosen_interview.getNextQuestion()
+##        while (current_question != "End of Interview"):
+##            answers=currentQuestion.getAnswers()
+##            sendAnswers=[]
+##            firstletter='A'
+##            for a in answers:
+##                sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
+##                firstletter=chr(ord(firstletter)+1)
+##            messagestring="\n"+currentQuestion.getQuestionText()+"\n"
+##            for tup in sendAnswers:
+##                messagestring=messagestring+str(tup[2])+": "+str(tup[0])+"\n"
+##            response=self.sendQuestion(messagestring,sendAnswers)
+##            responseID=""
+##            for tup in sendAnswers:
+##                if tup[2]==response:
+##                    responseID=tup[1]
+##            #currentinterview.answerQuestion(responseID)
+##            currentQuestion=currentinterview.getNextQuestion()
+##        self.client_socket.send(enc.encrypt("End of Interview"))
         logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
         return
 
@@ -221,11 +230,6 @@ class ServerThread(threading.Thread):
         greetingString='Welcome you are signed in as a Lawyer!\n'
         greetingString = enc.encrypt(greetingString)
         self.client_socket.send(greetingString)
-
-##        chose_option = 'Please enter an option create OR view'
-##        chose_option = enc.encrypt(chose_option)
-##        self.client_socket.send(chose_option)
-
         response = self.client_socket.recv(1024)
         response = enc.decrypt(response)
 
@@ -239,7 +243,7 @@ class ServerThread(threading.Thread):
             id_given = enc.decrypt(id_given)
             id_given = id_given.rstrip()
             print(id_given.encode())
-            self.viewInterview(interviewID = id_given)
+            self.viewInterview(id_given)
         
     def validate(self):
         global enc
