@@ -11,7 +11,7 @@ def terminate_session():
     return
 
 def adminMenu():
-    for i in range(0,2):
+    for i in range(0,5):
         message = client_socket.recv(1024)
         message = enc.decrypt(message)
         if (len(message) != 0): print(message)
