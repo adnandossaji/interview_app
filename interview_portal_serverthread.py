@@ -206,7 +206,7 @@ class ServerThread(threading.Thread):
                 print(assignTo)
                 db_interaction.assignUser(interviewID, assignTo)
                 assigning = False
-            elif checker == 'N') or (checker == 'n'):
+            elif checker == 'N':
                 assigning = False
                 break
             else:
