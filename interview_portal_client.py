@@ -22,14 +22,13 @@ def adminMenu():
     response = client_socket.recv(1024)
     response = enc.decrypt(response)
 
-    status = True
     while True:
         if response == '1':
-            status = False
             createInterview()
+            break
         elif response == '2':
-            status = False
             reviewInterview()
+            break
         else:
             if (len(response) != 0): print(response)
             sys.stdout.flush()
