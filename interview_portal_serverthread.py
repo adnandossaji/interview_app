@@ -282,7 +282,7 @@ class ServerThread(threading.Thread):
         interviewID = interviewID.rstrip()
 
 
-        userAssigned = db_interaction.checkIntAssigned(InterviewID)
+        userAssigned = db_interaction.checkIntAssigned(interviewID)
         if(userAssigned != None):
             msg= 'Enter a user to assign to :'
             msg = enc.encrypt(msg)
