@@ -45,6 +45,9 @@ class ServerThread(threading.Thread):
         option2 = ("2. Review an Interview")
         option2 = enc.encrypt(option2)
         self.client_socket.send(option2)
+        option3 = ("    3. Assign an Interview")
+        option3 = enc.encrypt(option3)
+        self.client_socket.send(option3)
 
         response = self.client_socket.recv(1024)
         response = enc.decrypt(response)
@@ -60,6 +63,11 @@ class ServerThread(threading.Thread):
                 echo = enc.encrypt(response)
                 self.client_socket.send(echo)
                 self.reviewInterview()
+                break
+            elif response == '3':
+                echo = enc.encrypt(response)
+                self.client_socket.send(echo)
+                self.assignInterview()
                 break
             else:
                 error = "Invalid option, try again"
@@ -259,6 +267,59 @@ class ServerThread(threading.Thread):
                 
         msg = "End of Interview"
         self.client_socket.send(enc.encrypt(msg))
+
+
+def assignInterview(self):
+        global enc
+        greetingString="Welcome to the interview assigner!"
+        greetingString = enc.encrypt(greetingString)
+        self.client_socket.send(greetingString)
+        msg= 'Enter a interview number to assign :'
+        msg = enc.encrypt(msg)
+        self.client_socket.send(msg)
+        interviewID = self.client_socket.recv(1024)
+        interviewID = enc.decrypt(interviewID)
+        interviewID = interviewID.rstrip()
+
+
+        userAssigned = db_interaction.checkIntAssigned(InterviewID)
+        if(userAssigned != None):
+            msg= 'Enter a user to assign to :'
+            msg = enc.encrypt(msg)
+            self.client_socket.send(msg)
+            assignTo = self.client_socket.recv(1024)
+            assignTo = enc.decrypt(assignTo)
+            assignTo = assignTo.rstrip()
+            print(assignTo)
+            if(db_interaction.getUserInterviewID(assignTo) != None):
+                db_interaction.assignUser(interviewID, assignTo)
+            else:
+                msg= 'This user already has an interview assigned to them. Are you sure you want to assign a different interview (Y/N)?'
+                self.client_socket.send(enc.encrypt(msg))
+
+                checker = self.client_socket.recv(1024)
+                checker = enc.decrypt(checker)
+                checker = checker.rstrip()
+                checker = checker.upper()
+                while (assigning):
+                    if checker == 'Y':
+                        db_interaction.assignUser(interviewID, assignTo)
+                        assigning = False
+                    elif checker == 'N':
+                        assigning = False
+                        break
+                    else:
+                        msg="Invalid Response!"
+                        self.client_socket.send(enc.encrypt(msg))
+        else:
+            msg= ('This interview is already assigned to  user {}'.format(userAssigned)
+            self.client_socket.send(enc.encrypt(msg))
+        
+
+
+        msg = "End of assigning process"
+        self.client_socket.send(enc.encrypt(msg))
+
 
 
     def validate(self):

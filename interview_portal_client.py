@@ -31,6 +31,9 @@ def adminMenu():
         elif response == '2':
             reviewInterview()
             break
+        elif response == '3':
+            assignInterview()
+            break
         else:
             if (len(response) != 0): print(response)
             sys.stdout.flush()
@@ -93,6 +96,24 @@ def createInterview():
     sys.stdout.flush()
     
     while (interview_string!="End of Interview"):
+        answer_string=str(input("CLIENT > "))
+        answer_string = enc.encrypt(answer_string)
+        client_socket.send(answer_string)
+        interview_string = client_socket.recv(1024)
+        interview_string = enc.decrypt(interview_string)
+        print(interview_string)
+
+def assignInterview():
+    greeting = client_socket.recv(1024)
+    greeting = enc.decrypt(greeting)
+    if (len(greeting) != 0): print(greeting)
+    sys.stdout.flush()
+    interview_string = client_socket.recv(1024)
+    interview_string = enc.decrypt(interview_string)
+    if (len(greeting) != 0): print(interview_string)
+    sys.stdout.flush()
+    
+    while (interview_string!="End of assigning process"):
         answer_string=str(input("CLIENT > "))
         answer_string = enc.encrypt(answer_string)
         client_socket.send(answer_string)
