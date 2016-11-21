@@ -77,9 +77,15 @@ def makeNewInterview(activeInterview, UserID):
                 # conn.execute("insert into UserInformation(InterviewID) where UserID = ? vaules(?)", (UserID, IntID))
         conn.commit()
         conn.close()
+        return IntID
 	
 	
-	
+def assignUser(InterviewID, UserName):
+        conn= sqlite3.connect( 'interview_portal.db' )
+        conn.row_factory = sqlite3.Row
+        conn.execute("UPDATE UserInformation SET InterviewID = ? WHERE UserName = ?", (InterviewID, UserName))
+        conn.commit()
+        conn.close()	
 		
 
 #getUser('ccastino','pw123')

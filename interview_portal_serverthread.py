@@ -94,7 +94,7 @@ class ServerThread(threading.Thread):
 
     def createInterview(self):
         global enc
-        greetingString="Welcome to the interview creator!\n"
+        greetingString="Welcome to the interview creator!"
         greetingString = enc.encrypt(greetingString)
         self.client_socket.send(greetingString)
 
@@ -105,7 +105,7 @@ class ServerThread(threading.Thread):
         name = self.client_socket.recv(1024)
         name = enc.decrypt(name)
 
-        logger.warning('User {} created interview {}'.format(self._USER_NAME, name))
+        logger.info('User {} created interview {}'.format(self._USER_NAME, name))
         print(name)
         questions = []
 
@@ -179,7 +179,31 @@ class ServerThread(threading.Thread):
 
         print(questions)
 
-        db_interaction.makeNewInterview(interview, self.currentuser.getIntID())
+        interviewID = db_interaction.makeNewInterview(interview, self.currentuser.getID())
+        assigning = True
+        msg= 'Would you like to assign this interview to a user (Y/N)?\n'
+        self.client_socket.send(enc.encrypt(msg))
+                
+        checker = self.client_socket.recv(1024)
+        checker = enc.decrypt(checker)
+        while (assigning):
+            if (checker == 'Y'):
+                msg= 'Enter a user to assign to\n'
+                msg = enc.encrypt(msg)
+                self.client_socket.send(msg)
+                assignTo = self.client_socket.recv(1024)
+                assignTo = enc.decrypt(assignTo)
+                print(assignTo)
+                db_interaction.assignUser(interviewID, assignTo)
+                assigning = False
+            elif (checker == 'N'):
+                assigning = False
+                break
+            else:
+                msg="Invalid Response?\n"
+                self.client_socket.send(enc.encrypt(msg))
+                    
+        
         msg = "End of Interview"
         self.client_socket.send(enc.encrypt(msg))
 
