@@ -135,6 +135,12 @@ if __name__ == "__main__":
     loggedInAs = client_socket.recv(1024)
     loggedInAs = enc.decrypt(loggedInAs)
     if (validate(loggedInAs)):
-        if (loggedInAs == "Interviewee"): startinterview()
-        elif (loggedInAs == "Lawyer"): createInterview()
+        if (loggedInAs == "Interviewee"):
+            startinterview()
+        elif (loggedInAs == "Lawyer"):
+            adminMenu()
+        elif (loggedInAs == "System Admin"):
+            adminMenu()
+        elif (loggedInAs == "Legal Aide"):
+            reviewInterview()    
     print("Logging Out...")
