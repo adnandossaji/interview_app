@@ -29,8 +29,8 @@ def getUserRole(userRoleID):
         row = conn.execute(select + table + "WHERE UserRoleID = ?",(str(userRoleID))).fetchone()
 
         return row['UserRoleDescription']
-	
-	
+
+
 def getInterview(InterviewID):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
@@ -40,27 +40,27 @@ def getInterview(InterviewID):
         rows = conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
         InterviewName = rows[0]['InterviewName']
         Questions = {}
-        
+
         for row in rows:
         	if row['QuestionID'] in Questions:
         		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
         	else :
         		Questions[row['QuestionID']] = question.Question(row['QuestionID'],row['QuestionText'])
         		Questions[row['QuestionID']].putAnswer(answer.Answer(row['AnswerID'],row['AnswerText']))
-	
+
         res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
         conn.close()
         return res
-	
-	# accept's a list of the Answer objects and inserts each into the database 
+
+	# accept's a list of the Answer objects and inserts each into the database
 def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
         for Question in ActiveInterview.getQuestions():
-        	conn.excute("INSERT INTO InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)",(ActiveInterview.getInterviewID(), Question.getQuestionID(), Question.getUserAnswer()))
+        	conn.execute("INSERT INTO InterviewRelation(InterviewID, QuestionID, UserAnswerID) values (?,?,?)",(ActiveInterview.getInterviewID(), Question.getQuestionID(), Question.getUserAnswer()))
         conn.commit()
         conn.close()
-		
+
 	# accept's an activeInterview object and UserID and inserts the data into the database
 def makeNewInterview(activeInterview, UserID):
         conn= sqlite3.connect( 'interview_portal.db' )
@@ -98,21 +98,15 @@ def checkIntAssigned(InterviewID):
         row = conn.execute(select + table + "WHERE InterviewID = ?",(str(InterviewID))).fetchone()
 
         return row['UserName']
-	
-	
+
+
 def assignUser(InterviewID, UserName):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
         conn.execute("UPDATE UserInformation SET InterviewID = ? WHERE UserName = ?", (InterviewID, UserName))
         conn.commit()
-        conn.close()	
-		
+        conn.close()
+
 
 #getUser('ccastino','pw123')
 getInterview('1')
-
-
-
-
-
-

@@ -30,7 +30,7 @@ class ServerThread(threading.Thread):
     ##Helper function for giveInterview. Handles all##
     ##looping needed to assure a correct response   ##
     ##################################################
-    
+
     def adminMenu(self):
         global enc
         greeting = ("Welcome to the Interview Portal")
@@ -52,7 +52,7 @@ class ServerThread(threading.Thread):
         response = self.client_socket.recv(1024)
         response = enc.decrypt(response)
         response = response.rstrip()
-        
+
         while True:
             if response == '1':
                 echo = enc.encrypt(response)
@@ -81,7 +81,7 @@ class ServerThread(threading.Thread):
 
     def reviewInterview(self):
         print("REVIEW!")
-    
+
     def sendQuestion(self,messagestring,sendAnswers):
         global enc
         correct=False
@@ -96,7 +96,6 @@ class ServerThread(threading.Thread):
             response = response.upper()
             print(response)
             for tup in sendAnswers:
-                print("Checking if", tup[2],"is", response)
                 if response == tup[2]:
                     correct = True
                     return response
@@ -140,8 +139,9 @@ class ServerThread(threading.Thread):
             for tup in sendAnswers:
                 if tup[2]==response:
                     responseID=tup[1]
-            #currentinterview.answerQuestion(responseID)
+            currentinterview.answerQuestion(responseID)
             currentQuestion=currentinterview.getNextQuestion()
+        db_interaction.submitAnswers(currentinterview)
         self.client_socket.send(enc.encrypt("End of Interview"))
         logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
         return
@@ -264,7 +264,7 @@ class ServerThread(threading.Thread):
             else:
                 msg="Invalid Response!"
                 self.client_socket.send(enc.encrypt(msg))
-                
+
         msg = "End of Interview"
         self.client_socket.send(enc.encrypt(msg))
 
@@ -314,7 +314,7 @@ class ServerThread(threading.Thread):
         else:
             msg= ('This interview is already assigned to  user {}'.format(userAssigned))
             self.client_socket.send(enc.encrypt(msg))
-        
+
 
 
         msg = "End of assigning process"
@@ -359,7 +359,7 @@ class ServerThread(threading.Thread):
         print('Socket closed')
         sys.stdout.flush()
 
-    
+
     def key_exchange(self):
         dif = diffieHellman()
         other_key = self.client_socket.recv(2048).decode()
@@ -389,10 +389,10 @@ class ServerThread(threading.Thread):
         ##conditional
         user_role = self.currentuser.getPer()
         self.client_socket.send(enc.encrypt(str('{}'.format(db_interaction.getUserRole(user_role)))))
-        
-        if (user_role == 4): 
+
+        if (user_role == 4):
             self.giveInterview()
-        elif (user_role == 1): 
+        elif (user_role == 1):
             self.adminMenu()
         elif (user_role == 2):
             self.adminMenu()
