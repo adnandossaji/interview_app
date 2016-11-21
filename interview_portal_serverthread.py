@@ -326,8 +326,16 @@ class ServerThread(threading.Thread):
         ##This assumes that the user is trying to take an interview. Additional##
         ##user options could be added easily by making the giveInterview call  ##
         ##conditional
-        self.client_socket.send(enc.encrypt(str('{}'.format(db_interaction.getUserRole(self.currentuser.getPer())))))
-        if (self.currentuser.getPer() == 4): self.giveInterview()
-        elif (self.currentuser.getPer() == 2): self.createInterview()
+        user_role = self.currentuser.getPer()
+        self.client_socket.send(enc.encrypt(str('{}'.format(db_interaction.getUserRole(user_role)))))
+        
+        if (user_role == 4): 
+            self.giveInterview()
+        elif (user_role == 1): 
+            self.adminMenu()
+        elif (user_role == 2):
+            self.adminMenu()
+        elif (user_role == 3):
+            self.reviewInterview()
 
         self.terminate_session()
