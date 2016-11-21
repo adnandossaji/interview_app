@@ -45,7 +45,7 @@ class ServerThread(threading.Thread):
         option2 = ("2. Review an Interview")
         option2 = enc.encrypt(option2)
         self.client_socket.send(option2)
-        option3 = ("    3. Assign an Interview")
+        option3 = ("3. Assign an Interview")
         option3 = enc.encrypt(option3)
         self.client_socket.send(option3)
 
@@ -269,7 +269,7 @@ class ServerThread(threading.Thread):
         self.client_socket.send(enc.encrypt(msg))
 
 
-def assignInterview(self):
+    def assignInterview(self):
         global enc
         greetingString="Welcome to the interview assigner!"
         greetingString = enc.encrypt(greetingString)
@@ -291,7 +291,7 @@ def assignInterview(self):
             assignTo = enc.decrypt(assignTo)
             assignTo = assignTo.rstrip()
             print(assignTo)
-            if(db_interaction.getUserInterviewID(assignTo) != None):
+            if(db_interaction.getUserInterviewID(assignTo) == None):
                 db_interaction.assignUser(interviewID, assignTo)
             else:
                 msg= 'This user already has an interview assigned to them. Are you sure you want to assign a different interview (Y/N)?'
@@ -312,7 +312,7 @@ def assignInterview(self):
                         msg="Invalid Response!"
                         self.client_socket.send(enc.encrypt(msg))
         else:
-            msg= ('This interview is already assigned to  user {}'.format(userAssigned)
+            msg= ('This interview is already assigned to  user {}'.format(userAssigned))
             self.client_socket.send(enc.encrypt(msg))
         
 

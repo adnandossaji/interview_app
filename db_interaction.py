@@ -78,6 +78,26 @@ def makeNewInterview(activeInterview, UserID):
         conn.commit()
         conn.close()
         return IntID
+
+def getUserInterviewID(userName):
+        conn= sqlite3.connect( 'interview_portal.db' )
+        conn.row_factory = sqlite3.Row
+        select = "SELECT InterviewID "
+        table = "FROM UserInformation "
+
+        row = conn.execute(select + table + "WHERE UserName = ?",(str(userName))).fetchone()
+
+        return row['InterviewID']
+
+def checkIntAssigned(InterviewID):
+        conn= sqlite3.connect( 'interview_portal.db' )
+        conn.row_factory = sqlite3.Row
+        select = "SELECT UserName "
+        table = "FROM UserInformation "
+
+        row = conn.execute(select + table + "WHERE InterviewID = ?",(str(InterviewID))).fetchone()
+
+        return row['UserName']
 	
 	
 def assignUser(InterviewID, UserName):
