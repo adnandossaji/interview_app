@@ -39,10 +39,10 @@ class ServerThread(threading.Thread):
         message = ("Please select a function :")
         message = enc.encrypt(message)
         self.client_socket.send(message)
-        option1 = ("    1. Create an Interview")
+        option1 = ("1. Create an Interview")
         option1 = enc.encrypt(option1)
         self.client_socket.send(option1)
-        option2 = ("    2. Review an Interview")
+        option2 = ("2. Review an Interview")
         option2 = enc.encrypt(option2)
         self.client_socket.send(option2)
 
