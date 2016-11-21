@@ -61,5 +61,5 @@ Group Member		  Contribution
 
 ##Tom Plutz
 1. Wrote the encryption class.
-2. Worked on the key exchange between (client and server) and (server and db). (Work in Process)
-3. Wrote function to import and install needed modules using pip. (havent uploaded yet, want to finish key exchange first)
+2. Wrote a Diffie Hellmann KeyExchange class for the server and client to use.
+3. Wrote function to import and install needed modules using pip.
