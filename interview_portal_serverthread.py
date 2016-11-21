@@ -49,20 +49,18 @@ class ServerThread(threading.Thread):
         response = self.client_socket.recv(1024)
         response = enc.decrypt(response)
         response = response.rstrip()
-
-        status = True
-        while status:
+        
+        while True:
             if response == '1':
                 echo = enc.encrypt(response)
                 self.client_socket.send(echo)
-                status = False
                 self.createInterview()
-
+                break
             elif response == '2':
                 echo = enc.encrypt(response)
                 self.client_socket.send(echo)
-                status = False
                 self.reviewInterview()
+                break
             else:
                 error = "Invalid option, try again"
                 error = enc.encrypt(error)
