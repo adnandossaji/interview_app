@@ -58,7 +58,7 @@ Group Member		  Contribution
 2. authentication process
 
 ##Matthew Current
-
+1. allowed to assign multiple interverviews at once
 ##Tom Plutz
 1. Wrote the encryption class.
 2. Wrote a Diffie Hellmann KeyExchange class for the server and client to use.
