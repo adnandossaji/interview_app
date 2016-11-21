@@ -40,9 +40,11 @@ class ServerThread(threading.Thread):
             messagestring = enc.decrypt(messagestring)
             response=self.client_socket.recv(1024)
             response = enc.decrypt(response)
+            response = response.rstrip()
+            response = response.upper()
             print(response)
             for tup in sendAnswers:
-                print(tup[2],"is", response)
+                print("Checking if", tup[2],"is", response)
                 if response == tup[2]:
                     correct = True
                     return response
@@ -119,13 +121,15 @@ class ServerThread(threading.Thread):
             self.client_socket.send(msg)
             question = self.client_socket.recv(1024)
             question = enc.decrypt(question)
+            question = question.rstrip()
             print(question)
             while(nextA):
-                msg="Please type an ANSWER?\n"
+                msg="Please type an ANSWER?"
                 self.client_socket.send(enc.encrypt(msg))
 
                 answer = self.client_socket.recv(1024)
                 answer = enc.decrypt(answer)
+                answer = answer.rstrip()
                 answerObj = Answer(1000, answer)
 
                 answers.append(answerObj)
@@ -134,44 +138,47 @@ class ServerThread(threading.Thread):
                 check = True
 
                 while(check):
-                    msg = "Would you like to add another ANSWER (Y/N)?\n"
+                    msg = "Would you like to add another ANSWER (Y/N)?"
                     self.client_socket.send(enc.encrypt(msg))
-                    
+
                     checker = self.client_socket.recv(1024)
                     checker = enc.decrypt(checker)
+                    checker = checker.rstrip()
+                    checker = checker.upper()
                     print(checker)
-                    if (checker == 'Y'):
+                    if checker == 'Y':
                         check = False
                         nextA = True
-                    elif (checker == 'N'):
+                    elif checker == 'N':
                         check = False
                         nextA = False
                         print("1")
                     else:
-                        msg="Invalid Response?\n"
+                        msg="Invalid Response!"
                         self.client_socket.send(enc.encrypt(msg))
                         check = True
-            
+
             questionObj = Question(1000,question,answers)
             questions.append(questionObj)
             nextA = True
             check2 = True
 
             while(check2):
-                msg= 'Would you like to add another QUESTION (Y/N)?\n'
+                msg= 'Would you like to add another QUESTION (Y/N)?'
                 self.client_socket.send(enc.encrypt(msg))
-                
+
                 checker = self.client_socket.recv(1024)
                 checker = enc.decrypt(checker)
-
-                if (checker == 'Y'):
+                checker = checker.rstrip()
+                checker = checker.upper()
+                if checker == 'Y':
                     check2 = False
                     nextQ = True
-                elif (checker == 'N'):
+                elif checker == 'N':
                     check2 = False
                     nextQ = False
                 else:
-                    msg="Invalid Response?\n"
+                    msg="Invalid Response!"
                     self.client_socket.send(enc.encrypt(msg))
                     check = True
 
@@ -181,32 +188,33 @@ class ServerThread(threading.Thread):
 
         interviewID = db_interaction.makeNewInterview(interview, self.currentuser.getID())
         assigning = True
-        msg= 'Would you like to assign this interview to a user (Y/N)?\n'
+        msg= 'Would you like to assign this interview to a user (Y/N)?'
         self.client_socket.send(enc.encrypt(msg))
-                
+
         checker = self.client_socket.recv(1024)
         checker = enc.decrypt(checker)
+        checker = checker.rstrip()
+        checker = checker.upper()
         while (assigning):
-            if (checker == 'Y'):
-                msg= 'Enter a user to assign to\n'
+            if checker == 'Y':
+                msg= 'Enter a user to assign to :'
                 msg = enc.encrypt(msg)
                 self.client_socket.send(msg)
                 assignTo = self.client_socket.recv(1024)
                 assignTo = enc.decrypt(assignTo)
+                assignTo = assignTo.rstrip()
                 print(assignTo)
                 db_interaction.assignUser(interviewID, assignTo)
                 assigning = False
-            elif (checker == 'N'):
+            elif checker == 'N') or (checker == 'n'):
                 assigning = False
                 break
             else:
-                msg="Invalid Response?\n"
+                msg="Invalid Response!"
                 self.client_socket.send(enc.encrypt(msg))
-                    
-        
+                
         msg = "End of Interview"
         self.client_socket.send(enc.encrypt(msg))
-
 
 
     def validate(self):
