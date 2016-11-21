@@ -85,7 +85,7 @@ def getUserInterviewID(userName):
         select = "SELECT InterviewID "
         table = "FROM UserInformation "
 
-        row = conn.execute(select + table + "WHERE UserName = ?",(userName)).fetchone()
+        row = conn.execute(select + table + "WHERE UserName = ?",(userName,)).fetchone()
 
         return row['InterviewID']
 
