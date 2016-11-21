@@ -10,6 +10,41 @@ def terminate_session():
     print('Server socket closed')
     return
 
+def adminMenu():
+    for i in range(0,4):
+        message = client_socket.recv(1024)
+        message = enc.decrypt(message)
+        if (len(message) != 0): print(message)
+        sys.stdout.flush()
+    answer_string = str(input(" > "))
+    answer_string = enc.encrypt(answer_string)
+    client_socket.send(answer_string)
+    response = client_socket.recv(1024)
+    response = enc.decrypt(response)
+
+    status = True
+    while True:
+        if response == '1':
+            status = False
+            createInterview()
+        elif response == '2':
+            status = False
+            reviewInterview()
+        else:
+            if (len(response) != 0): print(response)
+            sys.stdout.flush()
+            answer_string = str(input(" > "))
+            answer_string = enc.encrypt(answer_string)
+            client_socket.send(answer_string)
+            response = client_socket.recv(1024)
+            response = enc.decrypt(response)
+
+def reviewInterview():
+    print("REVIEW!")
+
+
+
+
 def credentials():
     prompt=client_socket.recv(1024)
     prompt = enc.decrypt(prompt)
