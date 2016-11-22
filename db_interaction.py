@@ -51,6 +51,30 @@ def getInterview(InterviewID):
         res = active_interview.ActiveInterview(InterviewID,InterviewName,list(Questions.values()))
         conn.close()
         return res
+		
+		
+def reviewInterview(interviewID):
+		res = getInterview(interviewID)
+		conn= sqlite3.connect( 'interview_portal.db' )
+        conn.row_factory = sqlite3.Row
+		SELECT = "SELECT QuestionID, UserAnswerID"
+		FROM = "FROM InterviewRelation"
+		rows = conn.execute(SELECT + FROM + "WHERE InterviewID = ?", (interviewID,)).fetchall()
+		
+		Q = res.getNextQuestion()
+		while Q != "End of Interview":
+			id = str(Q.getQuestionID())
+			for row in rows:
+				if str(row['QuestionID']) == id:
+					res.answerQuestion(row['UserAnswerID'])
+					break
+				
+				else:
+					#do nothing
+			Q = res.getNextQuestion()
+		res.resetIter()	
+		return res
+			
 
 	# accept's a list of the Answer objects and inserts each into the database
 def submitAnswers(ActiveInterview):

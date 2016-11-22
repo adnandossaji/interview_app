@@ -32,6 +32,9 @@ class ActiveInterview():
 
 	def answerQuestion(self, AnswerID):
 		self.questions[self.iter-1].answerQuestion(AnswerID)
+		
+	def resetIter(self):
+		self.iter = 0
 
 	# returns the current question and increments the iter
 	def getNextQuestion(self):
