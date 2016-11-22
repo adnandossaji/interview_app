@@ -76,10 +76,15 @@ Group Member		  Contribution
 # Documentation
 
 ### **User(** *UserID, UserName, UserRoleID, InterviewID* **)**
+
 **\__str\_\_()** > return String
+
 **getID()** > return UserID
+
 ***getName()** > return UserName
+
 **getPer()** > return UserRoleID
+
 **getIntID()** > return InterviewID
 
 ### **Question(** *QuestionID, QuestionText, Answers* **)**
