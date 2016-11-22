@@ -35,6 +35,7 @@ class Encrypt:
         return iv + cipher.encrypt(bytes(message,'utf-8'))
 
     def decrypt(self,ciphertext):
+        if(len(ciphertext) == 0): return ''
         iv = ciphertext[:AES.block_size]
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         plaintext = cipher.decrypt(ciphertext[AES.block_size:])

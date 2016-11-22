@@ -112,3 +112,36 @@
 2016-11-21 21:11:16,887 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 51012)>
 2016-11-21 21:11:19,968 - interview_portal_serverthread - INFO - User adossaji has a login status of True
 2016-11-21 21:11:25,465 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 51012)>
+2016-11-21 22:11:48,001 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52148)>
+2016-11-21 22:11:51,150 - interview_portal_serverthread - WARNING - Invalid login attempt with username adossaji
+2016-11-21 22:11:51,150 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52148)>
+2016-11-21 22:14:28,175 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52180)>
+2016-11-21 22:14:30,626 - interview_portal_serverthread - WARNING - Invalid login attempt with username adossaji
+2016-11-21 22:14:30,627 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52180)>
+2016-11-21 22:15:40,575 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-21 22:15:41,203 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52189)>
+2016-11-21 22:15:49,570 - interview_portal_serverthread - WARNING - Invalid login attempt with username adossaji
+2016-11-21 22:15:49,570 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52189)>
+2016-11-21 22:16:19,825 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-21 22:16:20,616 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52200)>
+2016-11-21 22:16:25,256 - interview_portal_serverthread - WARNING - Invalid login attempt with username adossaji
+2016-11-21 22:16:25,257 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52200)>
+2016-11-21 22:16:46,727 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-21 22:16:47,513 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52204)>
+2016-11-21 22:16:49,921 - interview_portal_serverthread - WARNING - Invalid login attempt with username asd
+2016-11-21 22:16:49,921 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52204)>
+2016-11-21 22:17:22,358 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-21 22:17:23,379 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52210)>
+2016-11-21 22:17:26,111 - interview_portal_serverthread - WARNING - Invalid login attempt with username asdossa
+2016-11-21 22:17:26,112 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52210)>
+2016-11-21 22:17:38,554 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-21 22:17:39,529 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52214)>
+2016-11-21 22:17:43,607 - interview_portal_serverthread - WARNING - Invalid login attempt with username adossaji
+2016-11-21 22:17:43,607 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52214)>
+2016-11-21 22:18:20,203 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52232)>
+2016-11-21 22:18:24,790 - interview_portal_serverthread - WARNING - Invalid login attempt with username adossaji
+2016-11-21 22:18:24,791 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52232)>
+2016-11-21 22:18:42,357 - __main__ - INFO - server established on: localhost and listening on port: 55555 
+2016-11-21 22:18:43,308 - __main__ - INFO - New client connected : <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52236)>
+2016-11-21 22:18:46,719 - interview_portal_serverthread - WARNING - Invalid login attempt with username adossaji
+2016-11-21 22:18:46,719 - interview_portal_serverthread - INFO - connection terminated: <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55555), raddr=('127.0.0.1', 52236)>
