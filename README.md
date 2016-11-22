@@ -43,6 +43,9 @@ Group Member		  Contribution
 4. Various debugging issues
 
 ##Cody Castino
+1. Created the User, Interview, Question, Answer, and Active_Interview obj's for data manipulation
+2. Actively updated and tailored the above objects as needed by other code as developed
+3. Created and was the major contributor for db_Interaction
 
 ##James King
 1. Final iteration of Server/ServerThread/Client framework
