@@ -122,7 +122,7 @@ def createInterview():
     sys.stdout.flush()
     
     while (interview_string!="End of Interview"):
-        answer_string=str(input("CLIENT > "))
+        answer_string=str(input(" > "))
         answer_string = enc.encrypt(answer_string)
         client_socket.send(answer_string)
         interview_string = client_socket.recv(1024)
@@ -146,7 +146,7 @@ def assignInterview():
             if (len(greeting) != 0): print(interview_string)
             sys.stdout.flush()
         else:    
-            answer_string=str(input("CLIENT > "))
+            answer_string=str(input(" > "))
             answer_string = enc.encrypt(answer_string)
             client_socket.send(answer_string)
             interview_string = client_socket.recv(1024)
