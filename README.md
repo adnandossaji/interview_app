@@ -13,7 +13,7 @@ Fall 2016-2017
 DePaul University
 Karen Heart, Instructor
 
-Group Project Credits
+# Group Project Credits
 
 Project Name: Structured Interview Portal
 
@@ -72,3 +72,48 @@ Group Member		  Contribution
 1. Wrote the encryption class.
 2. Wrote a Diffie Hellmann KeyExchange class for the server and client to use.
 3. Wrote function to import and install needed modules using pip.
+
+# Documentation
+
+### **User(** *UserID, UserName, UserRoleID, InterviewID* **)**
+**\__str\_\_()** > return String
+**getID()** > return UserID
+***getName()** > return UserName
+**getPer()** > return UserRoleID
+**getIntID()** > return InterviewID
+
+### **Question(** *QuestionID, QuestionText, Answers* **)**
+**\__str\_\_()** > return String
+**getQuestionId()** > return QuestionID
+**getQuestionText()** > return QuestionText
+**getAnswers()** > return Answers
+**getAnswer()** > return String
+**putAnswer()**
+**answerQuestion()**
+**getUserAnswer()** > return String
+
+### **Answer(** *AID, Answer* **)**
+**\__str\_\_()** > return String
+**getAnswerText()** > return Answer
+**getAnswerID()** > return AID
+
+### **Interview(** *IntID, Title, NumQs* **)**
+**\__str\_\_()** > return String
+**getIntID()** > return IntID
+**getName()** > return Title
+**getNumQs()** > return NumQs
+
+### **CredentialsException(** *Exception* **)**
+**startInterview(** *InterviewID* **)** raise CredentiasException()
+
+### **diffieHellman()**
+The diffie hellman key exchange class is an algorithm used to establish a shared secret between two parties. In our case the client and server.
+
+**genRandom(** *bits* **)** > return Integer
+**genKey(** *otherKey* **)** > return String
+
+### **Encrypt(** *key* **)**
+The encryption class takes a string 16, 24,or 32 digit key as a string and is converted to bytes by the constructor. Use by instantiating anEncrypt object with the key passed and callencrypt or decrypt with a string passed as msg.
+
+**genRandom(** *message, key_size*, **)** > return String
+**genKey(** *ciphertext* **)** > return String
