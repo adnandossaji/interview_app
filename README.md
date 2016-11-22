@@ -1,9 +1,11 @@
-# interview_app
+# Interview Portal
 
 CSC 376 Distributed Systems
 Fall 2016-2017
 DePaul University
 Karen Heart, Instructor
+
+Project: Structured Interviews
 
 # Usage
 
@@ -31,14 +33,6 @@ Karen Heart, Instructor
 1. log in with the correct credentails
 2. select option 2
 3. enter the username of the interviewee you would like to view the interview for
-
-# Structured Interviews
-
-* Attorneys and their staff could create a structured interview by drafting questions and possible answers, as well as establishing the order in which questions are asked. >>>>> Done!
-* Interviewees answer the questions, and the software records their answers. >>>>> Done!
-* After completion of interviews, attorneys and their staff may view the answers, along with the associated questions. >>>>> Karen working on this
-* All parties using the structured interviewing system must be authenticated.   >>>> Done!
-* Users must also be authorized, meaning that only the attorneys and their designated staff members may create, modify, or delete structured interviews, as well as review the answers provided by interviewees. >>>> User Roles... Done!
 
 ![alt tag](ProgramDiagram.png?raw=true "Optional Title")
 
