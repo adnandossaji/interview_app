@@ -53,6 +53,10 @@ class ServerThread(threading.Thread):
         option3 = enc.encrypt(option3)
         self.client_socket.send(option3)
         time.sleep(0.05)
+        option3 = ("4. List Interviewees")
+        option3 = enc.encrypt(option3)
+        self.client_socket.send(option3)
+        time.sleep(0.05)
 
         response = self.client_socket.recv(1024)
         response = enc.decrypt(response)
@@ -74,6 +78,11 @@ class ServerThread(threading.Thread):
                 self.client_socket.send(echo)
                 self.assignInterview()
                 break
+            elif response == '4':
+                echo = enc.encrypt(response)
+                self.client_socket.send(echo)
+                self.listUsers()
+                break
             else:
                 error = "Invalid option, try again"
                 error = enc.encrypt(error)
@@ -84,9 +93,8 @@ class ServerThread(threading.Thread):
                 response = response.rstrip()
 
         return
-
     def reviewInterview(self):
-        greetingString="Welcome you are currently in viewing mode!"
+        greetingString="Interview Review Mode"
         greetingString = enc.encrypt(greetingString)
         self.client_socket.send(greetingString)
         time.sleep(0.05)
@@ -100,8 +108,31 @@ class ServerThread(threading.Thread):
         response = response.rstrip()
 
         interview_id = db_interaction.getUserInterviewID(response)
-        questions = db_interaction.reviewInterview(interview_id)
-        #print(questions)
+        rev = db_interaction.reviewInterview(interview_id)
+        print('InterviewID: ' + str(rev.getInterviewID()))
+        int_name = rev.getInterviewName()
+        int_name = enc.encrypt(int_name)
+        self.client_socket.send(int_name)
+        time.sleep(0.05)
+
+        for question in rev.getQuestions():
+            print('QuestionID: ' + str(question.getQuestionID()))
+            q_name = question.getQuestionText()
+            q_name = enc.encrypt(q_name)
+            self.client_socket.send(q_name)
+            time.sleep(0.05)
+
+            print('UserAnswerID: ' + str(question.getUserAnswerID()))
+            a_name = question.getUserAnswerText()
+            a_name = enc.encrypt(a_name)
+            self.client_socket.send(a_name)
+            time.sleep(0.05)
+
+        end_list = 'End of Interview'
+        end_list = enc.encrypt(end_list)
+        self.client_socket.send(end_list)
+        time.sleep(0.05)
+
 
     def sendQuestion(self,messagestring,sendAnswers):
         global enc
