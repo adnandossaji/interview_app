@@ -26,49 +26,49 @@ NOTE:  List one group member per line
  
 Group Member		  Contribution
 
-##Adnan Dossaji
+### Adnan Dossaji
 1. Second iteration of Server/ServerThread/Client framework (REVAMPED by James King)
 2. Part of database structure (Pair programming w/ James King)
 3. First iteration of User class (id, username, password)
 4. Added init. Error Handling for CredentialExceptions
 5. Added init. lawyer interface (Work in progress)
 
-##Arshad Khan
+### Arshad Khan
 1. Added startInterview for error handling in CredentialExceptions
 
-##Brandon Meng
+### Brandon Meng
 1. Created interview taking procedures on client
 2. Created interview administration on server
 3. Implemented answer saving
 4. Various debugging issues
 
-##Cody Castino
+### Cody Castino
 1. Created the User, Interview, Question, Answer, and Active_Interview obj's for data manipulation
 2. Actively updated and tailored the above objects as needed by other code as developed
 3. Created and was the major contributor for db_Interaction
 
-##James King
+### James King
 1. Final iteration of Server/ServerThread/Client framework
 2. Main database structure
 3. Admin Menu
 
-##Karen Cardenas
-1.reviewInterview()
+### Karen Cardenas
+1. reviewInterview()
 
-##Keaton Zonca
+### Keaton Zonca
 1. added code to assign a interview to a user when creating a new interview
 2. assign interview from adminMenu
 2. assignUser, checkIntAssigned, and  etUserInterviewID in db_interaction
 3. added logging to server and serverThread and created logging.ini
 
-##Khalid Alrawaf
+### Khalid Alrawaf
 1. def validate()
 2. authentication process
 
-##Matthew Current
+## Matthew Current
 1. allowed to assign multiple interverviews at once
 
-##Tom Plutz
+### Tom Plutz
 1. Wrote the encryption class.
 2. Wrote a Diffie Hellmann KeyExchange class for the server and client to use.
 3. Wrote function to import and install needed modules using pip.
