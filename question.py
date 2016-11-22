@@ -5,7 +5,7 @@ class Question():
 		self.qid = QuestionID
 		self.question = QuestionText
 		self.answers = [] if Answers == None else Answers
-		self.answered = 0
+		self.answered = answer.Answer(-1,'default')
 		
 	def __str__(self):
 		ret = "\n"
@@ -26,7 +26,14 @@ class Question():
 		self.answers.append(Answer)
 		
 	def answerQuestion(self, AnswerID):
-		self.answered = AnswerID
+		for answer in self.answers:
+                        if answer.getAnswerID() == AnswerID:
+                                self.answered = answer
+                        else:
+                                pass
 		
-	def getUserAnswer(self):
-		return self.answered
+	def getUserAnswerID(self):
+		return self.answered.getAnswerID()
+	
+	def getUserAnswerText(self):
+                return self.answered.getAnswerText()
