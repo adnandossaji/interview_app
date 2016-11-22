@@ -38,11 +38,7 @@ def getInterview(InterviewID):
         FROM = "FROM InterviewInfo ii "
         JOINS = "INNER JOIN InterviewRelation ir ON ii.InterviewID = ir.InterviewID INNER JOIN QuestionInfo qi ON ir.QuestionID = qi.QuestionID INNER JOIN QuestionRelation qr ON qi.QuestionID = qr.QuestionID INNER JOIN AnswerInfo a on qr.AnswerID = a.AnswerID "
         rows = conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
-        try:
-            InterviewName = rows[0]['InterviewName']
-        except IndexError:
-            res = active_interview.ActiveInterview(-1, "No interview available", [])
-            return res
+        InterviewName = rows[0]['InterviewName']
         Questions = {}
 
         for row in rows:
@@ -82,7 +78,7 @@ def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
         for Question in ActiveInterview.getQuestions():
-        	conn.execute("UPDATE InterviewRelation SET UserAnswerID = ? WHERE InterviewID = ? and QuestionID = ?",(Question.getUserAnswer(), ActiveInterview.getInterviewID(), Question.getQuestionID()))
+        	conn.execute("UPDATE InterviewRelation SET UserAnswerID) = (?) WHERE InterviewID = ? and QuestionID = ?",(Question.getUserAnswer(), ActiveInterview.getInterviewID(), Question.getQuestionID()))
         conn.commit()
         conn.close()
 
@@ -103,6 +99,19 @@ def makeNewInterview(activeInterview, UserID):
         conn.commit()
         conn.close()
         return IntID
+
+def getUsers():
+        conn= sqlite3.connect( 'interview_portal.db' )
+        conn.row_factory = sqlite3.Row
+        select = "SELECT UserID, UserName, InterviewID "
+        table = "FROM UserInformation "
+
+        rows = conn.execute(select + table + "WHERE UserRoleID = 4").fetchall()
+        users = []
+        for row in rows:
+                users.append(user.User(row['UserID'], row['UserName'], 4, row['InterviewID']))
+        return users
+        
 
 def getUserInterviewID(userName):
         conn= sqlite3.connect( 'interview_portal.db' )
@@ -139,3 +148,5 @@ def assignUser(InterviewID, UserName):
 #getUser('ccastino','pw123')
 #getInterview('1')
 #print(reviewInterview('1'))
+#for user in getUsers():
+#        print(user)
