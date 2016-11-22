@@ -94,6 +94,24 @@ class ServerThread(threading.Thread):
 
         return
     
+    
+    def listUsers(self):
+        interview_list = 'List of Interviewees'
+        interview_list = enc.encrypt(interview_list)
+        self.client_socket.send(interview_list)
+        time.sleep(0.05)
+
+        user_list = db_interaction.getUsers()
+        for users in user_list:
+            print('User : ' + users.getName())
+            user_name = enc.encrypt(users.getName())
+            self.client_socket.send(user_name)
+            time.sleep(0.05)
+        end_list = 'End of List'
+        end_list = enc.encrypt(end_list)
+        self.client_socket.send(end_list)
+        time.sleep(0.05)
+    
     def reviewInterview(self):
         greetingString="Interview Review Mode"
         greetingString = enc.encrypt(greetingString)
