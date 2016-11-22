@@ -44,11 +44,15 @@ def adminMenu():
             response = enc.decrypt(response)
 
 def reviewInterview():
-    print("REVIEW!")
-
-
-
-
+    for i in range(0,2):
+        message = client_socket.recv(1024)
+        message = enc.decrypt(message)
+        if (len(message) != 0): print(message)
+        sys.stdout.flush()
+        message = ''
+    answer_string = str(input(" > "))
+    answer_string = enc.encrypt(answer_string)
+    client_socket.send(answer_string)
 
 def credentials():
     prompt=client_socket.recv(1024)
