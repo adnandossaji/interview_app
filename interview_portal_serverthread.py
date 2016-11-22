@@ -93,6 +93,7 @@ class ServerThread(threading.Thread):
                 response = response.rstrip()
 
         return
+    
     def reviewInterview(self):
         greetingString="Interview Review Mode"
         greetingString = enc.encrypt(greetingString)
