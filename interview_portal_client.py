@@ -11,7 +11,7 @@ def terminate_session():
     return
 
 def adminMenu():
-    for i in range(0,5):
+    for i in range(0,6):
         message = client_socket.recv(1024)
         message = enc.decrypt(message)
         if (len(message) != 0): print(message)
@@ -34,6 +34,9 @@ def adminMenu():
         elif response == '3':
             assignInterview()
             break
+        elif response == '4':
+            print('users()')
+            break
         else:
             if (len(response) != 0): print(response)
             sys.stdout.flush()
@@ -53,6 +56,25 @@ def reviewInterview():
     answer_string = str(input(" > "))
     answer_string = enc.encrypt(answer_string)
     client_socket.send(answer_string)
+
+    message = client_socket.recv(1024)
+    message = enc.decrypt(message)
+    if (len(message) != 0): print('Interview Name : '+ message)
+    sys.stdout.flush()
+    message = ''
+    message = client_socket.recv(1024)
+    message = enc.decrypt(message)
+    while (message != 'End of Interview'):
+        if (len(message) != 0): print('Question : ' + message)
+        sys.stdout.flush()
+        message = ''
+        message = client_socket.recv(1024)
+        message = enc.decrypt(message)
+        if (len(message) != 0): print('Answer : ' + message)
+        sys.stdout.flush()
+        message = ''
+        message = client_socket.recv(1024)
+        message = enc.decrypt(message)
 
 def credentials():
     prompt=client_socket.recv(1024)
@@ -100,7 +122,7 @@ def createInterview():
     sys.stdout.flush()
     
     while (interview_string!="End of Interview"):
-        answer_string=str(input("CLIENT > "))
+        answer_string=str(input(" > "))
         answer_string = enc.encrypt(answer_string)
         client_socket.send(answer_string)
         interview_string = client_socket.recv(1024)
@@ -124,7 +146,7 @@ def assignInterview():
             if (len(greeting) != 0): print(interview_string)
             sys.stdout.flush()
         else:    
-            answer_string=str(input("CLIENT > "))
+            answer_string=str(input(" > "))
             answer_string = enc.encrypt(answer_string)
             client_socket.send(answer_string)
             interview_string = client_socket.recv(1024)
