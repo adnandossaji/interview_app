@@ -157,6 +157,7 @@ def assignUser(InterviewID, UserName):
 #print('InterviewID: ' + str(rev.getInterviewID()))
 #for question in rev.getQuestions():
 #        print('QuestionID: ' + str(question.getQuestionID()))
-#        print('UserAnswerID: ' + str(question.getUserAnswer()))
+#        print('UserAnswerID: ' + str(question.getUserAnswerID()))
+#        print('UserAnswerText: ' + str(question.getUserAnswerText()))
 
         
