@@ -136,9 +136,9 @@ The diffie hellman key exchange class is an algorithm used to establish a shared
 ### **Encrypt(** *key* **)**
 The encryption class takes a string 16, 24,or 32 digit key as a string and is converted to bytes by the constructor. Use by instantiating anEncrypt object with the key passed and callencrypt or decrypt with a string passed as msg.
 
-**genRandom(** *message, key_size*, **)** > return String
+**encrypt(** *message, key_size*, **)** > return byteString
 
-**genKey(** *ciphertext* **)** > return String
+**decrypt(** *ciphertext* **)** > return String
 
 
 # Group Project Credits
