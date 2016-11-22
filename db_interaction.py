@@ -78,7 +78,7 @@ def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
         for Question in ActiveInterview.getQuestions():
-        	conn.execute("UPDATE InterviewRelation SET UserAnswerID = (?) WHERE InterviewID = ? and QuestionID = ?",(Question.getUserAnswer(), ActiveInterview.getInterviewID(), Question.getQuestionID()))
+        	conn.execute("UPDATE InterviewRelation SET UserAnswerID) = (?) WHERE InterviewID = ? and QuestionID = ?",(Question.getUserAnswer(), ActiveInterview.getInterviewID(), Question.getQuestionID()))
         conn.commit()
         conn.close()
 
@@ -150,3 +150,13 @@ def assignUser(InterviewID, UserName):
 #print(reviewInterview('1'))
 #for user in getUsers():
 #        print(user)
+
+
+#jimmy here is the code you asked for 
+#rev = reviewInterview('1')
+#print('InterviewID: ' + str(rev.getInterviewID()))
+#for question in rev.getQuestions():
+#        print('QuestionID: ' + str(question.getQuestionID()))
+#        print('UserAnswerID: ' + str(question.getUserAnswer()))
+
+        
