@@ -40,6 +40,7 @@ Karen Heart, Instructor
 * All parties using the structured interviewing system must be authenticated.   >>>> Done!
 * Users must also be authorized, meaning that only the attorneys and their designated staff members may create, modify, or delete structured interviews, as well as review the answers provided by interviewees. >>>> User Roles... Done!
 ##Diagram
+
 ![alt tag](ProgramDiagram.png?raw=true "Optional Title")
 
 # Documentation
