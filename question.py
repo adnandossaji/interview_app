@@ -11,7 +11,7 @@ class Question():
 		ret = "\n"
 		for answer in self.answers:
 			ret = ret + '\t\t' + str(answer) + '\n'
-		return '{ QID: ' + str(self.qid) + ' Question: ' + str(self.question) + ret + '}'
+		return '{ QID: ' + str(self.qid) + ' Question: ' + str(self.question) + ret + '\n answered: ' + str(self.answered) + '}'
 		
 	def getQuestionID(self):
 		return self.qid

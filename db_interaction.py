@@ -56,7 +56,7 @@ def getInterview(InterviewID):
 def reviewInterview(interviewID):
 		res = getInterview(interviewID)
 		conn= sqlite3.connect( 'interview_portal.db' )
-        conn.row_factory = sqlite3.Row
+		conn.row_factory = sqlite3.Row
 		SELECT = "SELECT QuestionID, UserAnswerID "
 		FROM = "FROM InterviewRelation "
 		rows = conn.execute(SELECT + FROM + "WHERE InterviewID = ?", (interviewID,)).fetchall()
@@ -69,7 +69,7 @@ def reviewInterview(interviewID):
 					res.answerQuestion(row['UserAnswerID'])
 					break
 			Q = res.getNextQuestion()
-		res.resetIter()	
+		res.resetIter()
 		return res
 			
 
@@ -133,4 +133,5 @@ def assignUser(InterviewID, UserName):
 
 
 #getUser('ccastino','pw123')
-getInterview('1')
+#getInterview('1')
+print(reviewInterview('1'))
