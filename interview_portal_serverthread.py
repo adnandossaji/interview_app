@@ -324,7 +324,7 @@ class ServerThread(threading.Thread):
                         msg="Invalid Response!"
                         self.client_socket.send(enc.encrypt(msg))
         else:
-            msg= ('This interview is already assigned to  user {}. Would you like to assign a different interview (Y/N)?'.format(userAssigned))
+            msg= ('This interview is already assigned to user {}. Would you like to assign a different interview (Y/N)?'.format(userAssigned))
             self.client_socket.send(enc.encrypt(msg))
             checker = self.client_socket.recv(1024)
             checker = enc.decrypt(checker)
