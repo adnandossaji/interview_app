@@ -78,7 +78,7 @@ def submitAnswers(ActiveInterview):
         conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
         for Question in ActiveInterview.getQuestions():
-        	conn.execute("UPDATE InterviewRelation SET UserAnswerID = (?) WHERE InterviewID = ? and QuestionID = ?",(Question.getUserAnswerText(), ActiveInterview.getInterviewID(), Question.getQuestionID()))
+        	conn.execute("UPDATE InterviewRelation SET UserAnswerID = (?) WHERE InterviewID = ? and QuestionID = ?",(Question.getUserAnswerID(), ActiveInterview.getInterviewID(), Question.getQuestionID()))
         conn.commit()
         conn.close()
 
