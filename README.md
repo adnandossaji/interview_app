@@ -39,7 +39,6 @@ Karen Heart, Instructor
 * After completion of interviews, attorneys and their staff may view the answers, along with the associated questions. >>>>> Karen working on this
 * All parties using the structured interviewing system must be authenticated.   >>>> Done!
 * Users must also be authorized, meaning that only the attorneys and their designated staff members may create, modify, or delete structured interviews, as well as review the answers provided by interviewees. >>>> User Roles... Done!
-##Diagram
 
 ![alt tag](ProgramDiagram.png?raw=true "Optional Title")
 
