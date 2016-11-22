@@ -57,8 +57,8 @@ def reviewInterview(interviewID):
 		res = getInterview(interviewID)
 		conn= sqlite3.connect( 'interview_portal.db' )
         conn.row_factory = sqlite3.Row
-		SELECT = "SELECT QuestionID, UserAnswerID"
-		FROM = "FROM InterviewRelation"
+		SELECT = "SELECT QuestionID, UserAnswerID "
+		FROM = "FROM InterviewRelation "
 		rows = conn.execute(SELECT + FROM + "WHERE InterviewID = ?", (interviewID,)).fetchall()
 		
 		Q = res.getNextQuestion()
@@ -68,9 +68,6 @@ def reviewInterview(interviewID):
 				if str(row['QuestionID']) == id:
 					res.answerQuestion(row['UserAnswerID'])
 					break
-				
-				else:
-					#do nothing
 			Q = res.getNextQuestion()
 		res.resetIter()	
 		return res
