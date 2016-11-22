@@ -79,7 +79,7 @@ Group Member		  Contribution
 ### **User(** *UserID, UserName, UserRoleID, InterviewID* **)**
 A basic user class that is used to model our User table in our database
 
-**\__str\_\_()** > return String
+**\__str\__()** > return String
 
 **getID()** > return UserID
 
@@ -93,7 +93,7 @@ A basic user class that is used to model our User table in our database
 ### **Question(** *QuestionID, QuestionText, Answers* **)**
 A basic question class that is used to model our Question table in our database
 
-**\__str\_\_()** > return String
+**\__str\__()** > return String
 
 **getQuestionId()** > return QuestionID
 
@@ -113,7 +113,7 @@ A basic question class that is used to model our Question table in our database
 ### **Answer(** *AID, Answer* **)**
 A basic answer class that is used to model our Answer table in our database
 
-**\__str\_\_()** > return String
+**\__str\__()** > return String
 
 **getAnswerText()** > return Answer
 
@@ -148,7 +148,7 @@ An active interview class that is used keep an active interview in session
 
 **getNextQuestion(** *AnswerID* **)** return String
 
-**\__str\_\_()** > return String
+**\__str\__()** > return String
 
 
 ### **CredentialsException(** *Exception* **)**
