@@ -77,6 +77,8 @@ Group Member		  Contribution
 
 
 ### **User(** *UserID, UserName, UserRoleID, InterviewID* **)**
+A basic user class that is used to model our User table in our database
+
 **\__str\_\_()** > return String
 
 **getID()** > return UserID
@@ -89,6 +91,8 @@ Group Member		  Contribution
 
 
 ### **Question(** *QuestionID, QuestionText, Answers* **)**
+A basic question class that is used to model our Question table in our database
+
 **\__str\_\_()** > return String
 
 **getQuestionId()** > return QuestionID
@@ -107,6 +111,8 @@ Group Member		  Contribution
 
 
 ### **Answer(** *AID, Answer* **)**
+A basic answer class that is used to model our Answer table in our database
+
 **\__str\_\_()** > return String
 
 **getAnswerText()** > return Answer
@@ -115,7 +121,7 @@ Group Member		  Contribution
 
 
 ### **Interview(** *IntID, Title, NumQs* **)**
-**\__str\_\_()** > return String
+A basic interview class that is used to model our Interview table in our database
 
 **getIntID()** > return IntID
 
@@ -123,8 +129,30 @@ Group Member		  Contribution
 
 **getNumQs()** > return NumQs
 
+### **ActiveInterview(** *InterviewID, InterviewName, Questions* **)**
+An active interview class that is used keep an active interview in session
+
+**putQuestion()**
+
+**getInterviewID()** > return InterviewID
+
+**getInterviewName()** > return InterviewName
+
+**getQuestions()** > return Questions
+
+**getQuestion()** > return Question()
+
+**answerQuestion(** *AnswerID* **)**
+
+**resetIter()**
+
+**getNextQuestion(** *AnswerID* **)** return String
+
+**\__str\_\_()** > return String
+
 
 ### **CredentialsException(** *Exception* **)**
+A basic exception class to handle authentication exceptions
 
 **startInterview(** *InterviewID* **)** raise CredentiasException()
 
