@@ -179,6 +179,7 @@ Group Member      Contribution
 1. Final iteration of Server/ServerThread/Client framework
 2. Main database structure
 3. Admin Menu
+4. List Users
 
 ### Karen Cardenas
 1. reviewInterview()
