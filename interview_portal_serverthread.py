@@ -197,20 +197,73 @@ class ServerThread(threading.Thread):
        # print(chosen_interview)
         ###this prints out interview with no answers attached###
 
-        print(type(chosen_interview))
+##        print(type(chosen_interview))
 
-        for l in chosen_interview:
-            print(l)
+        id_of_int = chosen_interview.getInterviewID()
+##        print(id_of_int)
+##        print(type(id_of_int))
 
+        name = chosen_interview.getInterviewName()
+##        print(name)
+##        print(type(name))
+
+        name_id = 'Interview Name: ' + str(name) + '\nInterview ID: ' + str(id_of_int)
+        name_id = enc.encrypt(name_id)
+        self.client_socket.send(name_id)
+              
+        questions = chosen_interview.getQuestions()
+        print(type(questions))
+        print(questions[1])
+
+        q = questions[1]
+        print(type(q))
+
+        currentQuestion=chosen_interview.getNextQuestion()
+        while currentQuestion != "End of Interview":
+            answers=currentQuestion.getAnswers()
+            sendAnswers=[]
+            firstletter='A'
+            for a in answers:
+                sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
+                firstletter=chr(ord(firstletter)+1)
+            messagestring="\n"+currentQuestion.getQuestionText()+"\n"
+            for tup in sendAnswers:
+                messagestring=messagestring+str(tup[2])+": "+str(tup[0])+"\n"
+            response=self.sendQuestion(messagestring,sendAnswers)
+            responseID=""
+            for tup in sendAnswers:
+                if tup[2]==response:
+                    responseID=tup[1]
+            #currentinterview.answerQuestion(responseID)
+            currentQuestion=chosen_interview.getNextQuestion()
+        self.client_socket.send(enc.encrypt("End of Interview"))
+        logger.info('User {} completed interview {}'.format(self.currentuser.getName(),interviewID))
+        return
+
+       # print(q._str_())
+
+        #print(questions._str_())
+        
+##        for q in questions:
+##            print(chosen_interview.getQuestionText(q))
+        
+
+##        for q in questions:
+##            answers = chosen_interview.answerQuestion(q)
+##            print(answers.encode())
+##        
 ##        current_question = chosen_interview.getNextQuestion()
 ##        while (current_question != "End of Interview"):
-##            answers=currentQuestion.getAnswers()
+##            answers = current_question.getAnswers()
 ##            sendAnswers=[]
-##            firstletter='A'
+##            #firstletter='A'
 ##            for a in answers:
-##                sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
-##                firstletter=chr(ord(firstletter)+1)
-##            messagestring="\n"+currentQuestion.getQuestionText()+"\n"
+##             #   sendAnswers.append((a.getAnswerText(),a.getAnswerID(),firstletter))
+##             #   firstletter=chr(ord(firstletter)+1)
+##                messagestring="\n"+current_question.getQuestionText()+"\n"
+##
+##            print(messagestring)
+            
 ##            for tup in sendAnswers:
 ##                messagestring=messagestring+str(tup[2])+": "+str(tup[0])+"\n"
 ##            response=self.sendQuestion(messagestring,sendAnswers)
@@ -219,9 +272,10 @@ class ServerThread(threading.Thread):
 ##                if tup[2]==response:
 ##                    responseID=tup[1]
 ##            #currentinterview.answerQuestion(responseID)
-##            currentQuestion=currentinterview.getNextQuestion()
+            #current_question=current_question.getNextQuestion()
 ##        self.client_socket.send(enc.encrypt("End of Interview"))
-        logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
+##        logger.info('User {} completed interview {}'.format(self.currentuser.getName(), self.currentuser.getIntID()))
+        
         return
 
                 
@@ -243,6 +297,7 @@ class ServerThread(threading.Thread):
             id_given = enc.decrypt(id_given)
             id_given = id_given.rstrip()
             print(id_given.encode())
+            #fix this part
             self.viewInterview(id_given)
         
     def validate(self):

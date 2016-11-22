@@ -71,31 +71,26 @@ def showInterview():
     #if (len(greeting) != 0): print(greeting)
     print(greeting)
 
-    ###ask for interview ID
-    ### id is algready requested ###
-##    print('please enter an Interview ID: ')
-##    sys.stdout.flush()
-##    int_id = str(sys.stdin.readline())
-##    int_id = enc.encrypt(int_id.rstrip())
-##    client_socket.send(int_id)
-    
     print('fetching interview... \nPlease wait...')
 
-    ### recieves interview
-    fetched_int = client_socket.recv(1024)
-    fetched_int = enc.decrypt(fetched_int)
+    ### recieves interview name and ID
+    intvw_name_id = client_socket.recv(1024)
+    intvw_name_id = enc.decrypt(intvw_name_id)
 
-    print(fetched_int)
+    print(intvw_name_id)
+    #grabs correct interview (atleasat for kcardenas)
+
+    questions = client_socket.recv(1024)
+    questions = enc.decrypt(question)
+    #print(question)
+    
     ### prints interivew
-##    while (fetched_int !="End of Interview"):#keyword could be swapped out for anything
-##        print(fetched_int)
-##        
-##        answer_string=str(input("Answer: "))
-##        answer_string = enc.encrypt(answer_string)
-##        client_socket.send(answer_string)
-##
-##        fetched_int = client_socket.recv(1024)
-##        fetched_int = enc.decrypt(fetched_int)
+    while (questions !="End of Interview"):#keyword could be swapped out for anything
+        print(questions)
+        
+
+        #fetched_int = client_socket.recv(1024)
+        #fetched_int = enc.decrypt(fetched_int)
 
     print("End of Interview")
     
