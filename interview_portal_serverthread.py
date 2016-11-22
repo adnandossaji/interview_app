@@ -86,7 +86,22 @@ class ServerThread(threading.Thread):
         return
 
     def reviewInterview(self):
-        print("REVIEW!")
+        greetingString="Welcome you are currently in viewing mode!"
+        greetingString = enc.encrypt(greetingString)
+        self.client_socket.send(greetingString)
+        time.sleep(0.05)
+        request = "Please enter an Interviewee's User Name :"
+        request = enc.encrypt(request)
+        self.client_socket.send(request)
+        time.sleep(0.05)
+
+        response = self.client_socket.recv(1024)
+        response = enc.decrypt(response)
+        response = response.rstrip()
+
+        interview_id = db_interaction.getUserInterviewID(response)
+        questions = db_interaction.reviewInterview(interview_id)
+        #print(questions)
 
     def sendQuestion(self,messagestring,sendAnswers):
         global enc
@@ -111,6 +126,8 @@ class ServerThread(threading.Thread):
 
 
         return response
+    
+    
 
         #############################################################
         ##Gives the interview by getting the question data, storing##
