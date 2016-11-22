@@ -190,10 +190,10 @@ if __name__ == "__main__":
     parser.add_argument('host', type = str, help = 'Host Address of the Server')
     parser.add_argument('port', type = int, help = 'Port used to connect to Server')
     args = parser.parse_args()
-    #_HOST = socket.gethostbyname(args.host)
-    #_PORT = args.port
-    _HOST = 'localhost'
-    _PORT = 55555
+    _HOST = socket.gethostbyname(args.host)
+    _PORT = args.port
+    #_HOST = 'localhost'
+    #_PORT = 55555
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((_HOST, _PORT))
     key = key_exchange()
