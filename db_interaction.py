@@ -38,7 +38,12 @@ def getInterview(InterviewID):
         FROM = "FROM InterviewInfo ii "
         JOINS = "INNER JOIN InterviewRelation ir ON ii.InterviewID = ir.InterviewID INNER JOIN QuestionInfo qi ON ir.QuestionID = qi.QuestionID INNER JOIN QuestionRelation qr ON qi.QuestionID = qr.QuestionID INNER JOIN AnswerInfo a on qr.AnswerID = a.AnswerID "
         rows = conn.execute(SELECT + FROM + JOINS + "WHERE ii.InterviewID = ?",(InterviewID,)).fetchall()
-        InterviewName = rows[0]['InterviewName']
+        try:
+		InterviewName = rows[0]['InterviewName']
+        except IndexError:
+        	res = active_interview.ActiveInterview(-1, "No interview available", [])
+            	return res
+		
         Questions = {}
 
         for row in rows:
