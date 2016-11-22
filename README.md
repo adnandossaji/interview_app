@@ -171,3 +171,31 @@ The encryption class takes a string 16, 24,or 32 digit key as a string and is co
 **genRandom(** *message, key_size*, **)** > return String
 
 **genKey(** *ciphertext* **)** > return String
+
+
+# Usage
+
+How to create an Interview:
+1) sign into the client portal lawyer permissions or higher
+2) select 1 and press enter 
+3) enter the name of the interview and press enter
+4) enter a question, then an answer. if you would like to add more than one answer type 'Y' and press enter
+5) when you are finished adding the questions you can assign the interview to a user by entering 'Y'
+
+How to take an Interview:
+1) sign into the client portal with interviewee permissions using the username and password given
+2) the assigned interview should show up with the first question. 
+3) Answer by typing one of the letter options shown and pressing enter
+3) continue answering the questions until the interview ends and you are logged out
+4) the program will automatically save your answers and will be available to the lawyer who assigned it for a later date
+
+How to assign an Interview:
+1) log into the client portal with lawyer permissions
+2) select option 3
+3) enter the interview ID number you would like to assign
+4) if the interview you wish to assign is already taken you have to option to assign a different interview
+
+How to review an Interview:
+1) log in with the correct credentails
+2) select option 2
+3) enter the username of the interviewee you would like to view the interview for
