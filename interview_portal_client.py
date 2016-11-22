@@ -35,7 +35,7 @@ def adminMenu():
             assignInterview()
             break
         elif response == '4':
-            print('users()')
+            listUsers()
             break
         else:
             if (len(response) != 0): print(response)
@@ -45,6 +45,23 @@ def adminMenu():
             client_socket.send(answer_string)
             response = client_socket.recv(1024)
             response = enc.decrypt(response)
+
+def listUsers():
+    message = client_socket.recv(1024)
+    message = enc.decrypt(message)
+    if (len(message) != 0): print(message)
+    sys.stdout.flush()
+    message = ''
+
+    message = client_socket.recv(1024)
+    message = enc.decrypt(message)
+    while (message != 'End of List'):
+        if (len(message) != 0): print('User : ' + message)
+        sys.stdout.flush()
+        message = ''
+        message = client_socket.recv(1024)
+        message = enc.decrypt(message)
+
 
 def reviewInterview():
     for i in range(0,2):
